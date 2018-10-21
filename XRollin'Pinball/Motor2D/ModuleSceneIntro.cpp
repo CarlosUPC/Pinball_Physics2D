@@ -28,6 +28,7 @@ bool ModuleSceneIntro::Start()
 	rick = App->textures->Load("pinball/rick_head.png");
 	ball_texture = App->textures->Load("textures/Ball.png");
 	map_texture = App->textures->Load("textures/Map.png");
+	startgame_texture = App->textures->Load("textures/start_game.png");
 	bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
 
 	//Load Lower flippers
@@ -58,13 +59,16 @@ bool ModuleSceneIntro::CleanUp()
 update_status ModuleSceneIntro::Update()
 {
 	App->renderer->Blit(map_texture, 0, 0);
+	App->renderer->Blit(startgame_texture, 365, 276);
 
-	if(App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+	if (game_started)
 	{
-		circles.add(App->physics->CreateCircle(App->input->GetMouseX(), App->input->GetMouseY(), 6.5f));
-		circles.getLast()->data->listener = this;
+		if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+		{
+			circles.add(App->physics->CreateCircle(App->input->GetMouseX(), App->input->GetMouseY(), 6.5f));
+			circles.getLast()->data->listener = this;
+		}
 	}
-
 	
 	if(App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
 	{
@@ -179,6 +183,16 @@ update_status ModuleSceneIntro::Update()
 
 		c = c->next;
 	}
+
+	if (App->input->GetMouseX() > 365 && App->input->GetMouseY() > 276 && App->input->GetMouseX() < 426 && App->input->GetMouseY() < 361)
+	{
+		if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN)
+		{
+			game_started = true;
+			startgame_texture = nullptr;
+		}
+	}
+	
 
 	return UPDATE_CONTINUE;
 }
