@@ -3,6 +3,7 @@
 #include "ModuleInput.h"
 #include "ModuleRender.h"
 #include "ModulePhysics.h"
+#include "ModulePlayer.h"
 #include "ModuleSceneIntro.h"
 #include "p2Point.h"
 #include "math.h"
@@ -35,7 +36,7 @@ bool ModulePhysics::Start()
 
 	App->scene_intro->leftFlippers = new p2List<PhysBody*>;
 	App->scene_intro->rightFlippers = new p2List<PhysBody*>;
-
+	tex = App->textures->Load("textures/start_game.png");
 
 
 	int map_coords[102] = {
@@ -306,6 +307,7 @@ PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius)
 	pbody->body = b;
 	b->SetUserData(pbody);
 	pbody->width = pbody->height = radius;
+
 
 	return pbody;
 }

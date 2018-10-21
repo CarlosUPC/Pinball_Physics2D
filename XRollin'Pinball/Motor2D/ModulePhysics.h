@@ -76,6 +76,7 @@ private:
 
 public:
 
+	SDL_Texture* tex;
 	b2Body* big_ball;
 	PhysBody* map;
 	PhysBody* map_1;

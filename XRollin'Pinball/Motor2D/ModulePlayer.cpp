@@ -38,6 +38,11 @@ update_status ModulePlayer::Update()
 	{
 		App->physics->FlippersForce(b2Vec2(0, -50), b2Vec2(0, 0), RIGHT);
 	}
+
+	if (is_dead)
+	{
+		LOG("IS DEAD!!!!");
+	}
 	return UPDATE_CONTINUE;
 }
 

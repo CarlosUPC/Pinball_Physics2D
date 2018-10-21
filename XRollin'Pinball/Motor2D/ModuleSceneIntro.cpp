@@ -192,6 +192,11 @@ update_status ModuleSceneIntro::Update()
 			startgame_texture = nullptr;
 		}
 	}
+
+	if (c->data->body->GetPosition().y == 400)
+	{
+		App->renderer->Blit(startgame_texture, 365, 276);
+	}
 	
 
 	return UPDATE_CONTINUE;

@@ -18,5 +18,6 @@ public:
 
 public:
 
-
+	uint lifes = 0;
+	bool is_dead = false;
 };
