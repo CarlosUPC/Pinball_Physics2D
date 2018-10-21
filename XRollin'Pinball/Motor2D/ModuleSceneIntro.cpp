@@ -28,6 +28,7 @@ bool ModuleSceneIntro::Start()
 	rick = App->textures->Load("pinball/rick_head.png");
 	ball_texture = App->textures->Load("textures/Ball.png");
 	map_texture = App->textures->Load("textures/Map.png");
+	dock_texture = App->textures->Load("textures/Dock.png");
 	startgame_texture = App->textures->Load("textures/start_game.png");
 	bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
 
@@ -61,6 +62,7 @@ update_status ModuleSceneIntro::Update()
 {
 	App->renderer->Blit(map_texture, 0, 0);
 	App->renderer->Blit(startgame_texture, 365, 276);
+	App->renderer->Blit(dock_texture, 225, 390);
 
 	if (game_started)
 	{

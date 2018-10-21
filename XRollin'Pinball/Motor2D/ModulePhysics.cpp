@@ -39,8 +39,8 @@ bool ModulePhysics::Start()
 
 	
 
-	int map_coords[102] = {
-	72, 419,
+	int map_coords[106] = {
+	72, 421,
 	0, 375,
 	0, 291,
 	14, 275,
@@ -84,13 +84,15 @@ bool ModulePhysics::Start()
 	228, 44,
 	235, 60,
 	241, 76,
-	241, 420,
-	224, 420,
+	241, 580,
+	224, 580,
 	223, 186,
 	187, 267,
 	207, 293,
 	207, 375,
-	136, 419
+	133, 420,
+	133, 499,
+	74, 499
 	};
 
 	// Element Orange 1
@@ -570,15 +572,15 @@ void ModulePhysics::FlippersForce(b2Vec2 vectforce, b2Vec2 posit, sides rl) {
 
 b2PrismaticJoint* ModulePhysics::CreateDock() {
 
-	PhysBody* dock = App->physics->CreateRectangle(232, 380, 14, 10, b2_dynamicBody);
-	PhysBody* dockBase = App->physics->CreateRectangle(232, 410, 10, 10, b2_staticBody);
+	PhysBody* dock = App->physics->CreateRectangle(232, 408, 14, 10, b2_dynamicBody);
+	PhysBody* dockBase = App->physics->CreateRectangle(232, 440, 10, 10, b2_staticBody);
 
 	b2PrismaticJointDef prismaticJointDef;
 	prismaticJointDef.Initialize(dock->body, dockBase->body, dockBase->body->GetWorldCenter(), b2Vec2(0, 1));
 	prismaticJointDef.collideConnected = true;
 
-	prismaticJointDef.lowerTranslation = 0.0f;
-	prismaticJointDef.upperTranslation = 0.5f;
+	prismaticJointDef.lowerTranslation = -0.25f;
+	prismaticJointDef.upperTranslation = 0.25f;
 	prismaticJointDef.enableLimit = true;
 
 	prismaticJointDef.maxMotorForce = 250.0f;

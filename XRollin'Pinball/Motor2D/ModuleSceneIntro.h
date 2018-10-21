@@ -33,6 +33,7 @@ public:
 	SDL_Texture* map_texture = nullptr;
 	SDL_Texture* ball_texture = nullptr;
 	SDL_Texture* startgame_texture = nullptr;
+	SDL_Texture* dock_texture = nullptr;
 	bool game_started = false;
 
 
