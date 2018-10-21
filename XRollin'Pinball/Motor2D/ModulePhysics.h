@@ -12,6 +12,7 @@
 #define METERS_TO_PIXELS(m) ((int) floor(PIXELS_PER_METER * m))
 #define PIXEL_TO_METERS(p)  ((float) METER_PER_PIXEL * p)
 
+
 // Small class to return to other modules to track position and rotation of physics bodies
 class PhysBody
 {
@@ -49,15 +50,17 @@ public:
 	PhysBody* CreatePolygon(int x, int y, int* points, int size, float dens, int rest, int filterIndex, b2BodyType type);
 	PhysBody* CreateInnerCircle(int x, int y, int radius);
 	
-
+	// Create Flippers
 	void BuildLeftFlippers(p2List<PhysBody*>* leftKickers);
 	void BuildRightFlippers(p2List<PhysBody*>* RightKickers);
 	
+	// Move Flipper
+	void FlippersForce(b2Vec2 vectforce, b2Vec2 posit, sides rl);
+
 	// b2ContactListener ---
 	void BeginContact(b2Contact* contact);
 
-	p2List<PhysBody*>* GetLeftFlippers();
-	void FlippersForce(b2Vec2 vectforce, b2Vec2 posit, sides rl);
+	
 
 private:
 
@@ -67,12 +70,12 @@ private:
 	b2Body* ground;
 	b2DistanceJoint* distance_joint;
 
-	/*p2List<PhysBody*>* leftFlippers;
-	p2List<PhysBody*>* rightFlippers;*/
-
+	// Mechanic to rotate fippers
 	b2RevoluteJoint* revolute_joint;
+	b2RevoluteJoint* revolute_joint2;
 
 public:
+
 	b2Body* big_ball;
 	PhysBody* map;
 	PhysBody* map_1;
@@ -85,5 +88,6 @@ public:
 	PhysBody* map_8;
 	PhysBody* map_9;
 	PhysBody* map_10;
+	
 	
 };

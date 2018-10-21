@@ -18,7 +18,7 @@ ModulePhysics::ModulePhysics(Application* app, bool start_enabled) : Module(app,
 	world = NULL;
 	mouse_joint = NULL;
 	revolute_joint = NULL;
-	debug = false;
+	debug = true;
 }
 
 // Destructor
@@ -458,10 +458,15 @@ PhysBody* ModulePhysics::CreatePolygon(int x, int y, int* points, int size, floa
 
 void ModulePhysics::BuildLeftFlippers(p2List<PhysBody*>* leftFlippers)
 {
-	
+	//Flipper Lower
 	PhysBody* flipper = CreateRectangle(111, 382, 30, 7, b2_dynamicBody); 
 	PhysBody* gear = CreateRectangle(68, 382, 1, 1, b2_staticBody); 
 
+	//Flipper Upper
+	PhysBody* flipper2 = CreateRectangle(120, 180, 25, 7, b2_dynamicBody);
+	PhysBody* gear2 = CreateRectangle(130, 180, 1, 1, b2_staticBody);
+
+	//Revolute Joint Flipper Lower
 	b2RevoluteJointDef revolute_def;
 
 	revolute_def.bodyA = gear->body;
@@ -476,13 +481,34 @@ void ModulePhysics::BuildLeftFlippers(p2List<PhysBody*>* leftFlippers)
 	revolute_joint = (b2RevoluteJoint*)world->CreateJoint(&revolute_def);
 	leftFlippers->add(flipper);
 
+	//Revolute Joint Flipper Upper
+	b2RevoluteJointDef revolute_def2;
+
+	revolute_def2.bodyA = gear2->body;
+	revolute_def2.bodyB = flipper2->body;
+
+	revolute_def2.localAnchorB = b2Vec2(-0.25, 0.0);
+	revolute_def2.enableLimit = true;
+	revolute_def2.lowerAngle = -(0.2);
+	revolute_def2.upperAngle = (0.3);
+	revolute_def2.collideConnected = false;
+
+	revolute_joint2 = (b2RevoluteJoint*)world->CreateJoint(&revolute_def2);
+	leftFlippers->add(flipper2);
+
 } 	
 
-void ModulePhysics::BuildRightFlippers(p2List<PhysBody*>* rightKickers)
+void ModulePhysics::BuildRightFlippers(p2List<PhysBody*>* rightFlippers)
 {
+	//Flipper Lower
 	PhysBody* flipper = CreateRectangle(160, 382, 30, 7, b2_dynamicBody);
 	PhysBody* gear = CreateRectangle(140, 382, 1, 1, b2_staticBody);
 
+	//Flipper Upper
+	PhysBody* flipper2 = CreateRectangle(181, 166, 25, 7, b2_dynamicBody);
+	PhysBody* gear2 = CreateRectangle(191, 166, 1, 1, b2_staticBody);
+
+	//Revolute Joint Flipper Lower
 	b2RevoluteJointDef revolute_def;
 	
 	revolute_def.bodyA = gear->body;
@@ -495,7 +521,22 @@ void ModulePhysics::BuildRightFlippers(p2List<PhysBody*>* rightKickers)
 	revolute_def.collideConnected = false;
 
 	revolute_joint = (b2RevoluteJoint*)world->CreateJoint(&revolute_def);
-	rightKickers->add(flipper);
+	rightFlippers->add(flipper);
+
+	//Revolute Joint Flipper Upper
+	b2RevoluteJointDef revolute_def2;
+
+	revolute_def2.bodyA = gear2->body;
+	revolute_def2.bodyB = flipper2->body;
+
+	revolute_def2.localAnchorB = b2Vec2(0.25, 0.0);
+	revolute_def2.enableLimit = true;
+	revolute_def2.lowerAngle = -(0.95);
+	revolute_def2.upperAngle = -(0.25);
+	revolute_def2.collideConnected = false;
+
+	revolute_joint2 = (b2RevoluteJoint*)world->CreateJoint(&revolute_def2);
+	rightFlippers->add(flipper2);
 }
 
 void ModulePhysics::FlippersForce(b2Vec2 vectforce, b2Vec2 posit, sides rl) {

@@ -30,8 +30,13 @@ bool ModuleSceneIntro::Start()
 	map_texture = App->textures->Load("textures/Map.png");
 	bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
 
+	//Load Lower flippers
 	left_flipper = App->textures->Load("textures/LeftFlipper.png");
 	right_flipper = App->textures->Load("textures/RightFlipper.png");
+
+	//Load Upper flippers
+	Upleft_flipper = App->textures->Load("textures/LeftUpperFlipper.png");
+	Upright_flipper = App->textures->Load("textures/RightUpperFlipper.png");
 
 	innerCircles.add(App->physics->CreateInnerCircle(108, 71, 10.75f));
 	innerCircles.getLast()->data->listener = this;
@@ -145,17 +150,32 @@ update_status ModuleSceneIntro::Update()
 	{
 		int x, y;
 		c->data->GetPosition(x, y);
+
+		//Print Lower Flipper
+		if (c == leftFlippers->getFirst())
 		App->renderer->Blit(left_flipper, x - 5, y - 7, NULL, 1.0f, c->data->GetRotation() - 30);
-		
+
+		//Print Upper Flipper
+		if (c == leftFlippers->getLast())
+		App->renderer->Blit(Upleft_flipper, x - 3, y - 3, NULL, 1.0f, c->data->GetRotation() - 20);
+
 		c = c->next;
 	}
+
 	c = rightFlippers->getFirst();
 
 	while (c != NULL)
 	{
 		int x, y;
 		c->data->GetPosition(x, y);
+
+		//Print Lower Flipper
+		if(c == rightFlippers->getFirst())
 		App->renderer->Blit(right_flipper, x + 3, y - 7, NULL, 1.0f, c->data->GetRotation() - 330);
+
+		//Print Upper Flipper
+		if (c == rightFlippers->getLast())
+		App->renderer->Blit(Upright_flipper, x + 6, y - 12, NULL, 1.0f, c->data->GetRotation() + 55);
 
 		c = c->next;
 	}

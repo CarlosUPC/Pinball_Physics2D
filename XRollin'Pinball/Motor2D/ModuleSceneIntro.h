@@ -35,5 +35,8 @@ public:
 
 	SDL_Texture* left_flipper;
 	SDL_Texture* right_flipper;
+
+	SDL_Texture* Upleft_flipper;
+	SDL_Texture* Upright_flipper;
 	uint bonus_fx;
 };
