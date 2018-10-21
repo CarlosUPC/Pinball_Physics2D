@@ -298,12 +298,12 @@ PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius)
 	shape.m_radius = PIXEL_TO_METERS(radius);
 	b2FixtureDef fixture;
 	fixture.shape = &shape;
-	fixture.density = 1.0f;
-	fixture.restitution = 0.3f;
+	fixture.density = 3.0f;
+	fixture.restitution = 0.01f;
 
 	b->CreateFixture(&fixture);
 
-	PhysBody* test_ball = CreateCircle(x, y, radius);
+	//PhysBody* test_ball = CreateCircle(x, y, radius);
 	PhysBody* pbody = new PhysBody();
 	pbody->body = b;
 	b->SetUserData(pbody);
@@ -330,7 +330,7 @@ PhysBody* ModulePhysics::CreateInnerCircle(int x, int y, int radius)
 	b2FixtureDef fixture;
 	fixture.shape = &shape;
 	fixture.density = 1.0f;
-	fixture.restitution = 1.0f;
+	fixture.restitution = 1.5f;
 
 	b->CreateFixture(&fixture);
 
@@ -568,12 +568,27 @@ void ModulePhysics::FlippersForce(b2Vec2 vectforce, b2Vec2 posit, sides rl) {
 	}
 }
 
-//p2List<PhysBody*>* ModulePhysics::GetLeftFlippers()
-//{
-//	return leftFlippers;
-//}
+b2PrismaticJoint* ModulePhysics::CreateDock() {
 
-// 
+	PhysBody* dock = App->physics->CreateRectangle(232, 380, 14, 10, b2_dynamicBody);
+	PhysBody* dockBase = App->physics->CreateRectangle(232, 410, 10, 10, b2_staticBody);
+
+	b2PrismaticJointDef prismaticJointDef;
+	prismaticJointDef.Initialize(dock->body, dockBase->body, dockBase->body->GetWorldCenter(), b2Vec2(0, 1));
+	prismaticJointDef.collideConnected = true;
+
+	prismaticJointDef.lowerTranslation = 0.0f;
+	prismaticJointDef.upperTranslation = 0.5f;
+	prismaticJointDef.enableLimit = true;
+
+	prismaticJointDef.maxMotorForce = 250.0f;
+	prismaticJointDef.motorSpeed = 150.0f;
+	prismaticJointDef.enableMotor = true;
+
+	return (b2PrismaticJoint*)App->physics->world->CreateJoint(&prismaticJointDef);
+}
+
+
 update_status ModulePhysics::PostUpdate()
 {
 	if(App->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)

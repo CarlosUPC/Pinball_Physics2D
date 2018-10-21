@@ -20,4 +20,9 @@ public:
 
 	uint lifes = 0;
 	bool is_dead = false;
+	b2PrismaticJoint* dock;
+
+private:
+	float dockPosY = 0;
+	b2Vec2 displacement;
 };

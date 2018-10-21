@@ -49,7 +49,8 @@ public:
 	PhysBody* CreateChain(int x, int y, int* points, int size);
 	PhysBody* CreatePolygon(int x, int y, int* points, int size, float dens, int rest, int filterIndex, b2BodyType type);
 	PhysBody* CreateInnerCircle(int x, int y, int radius);
-	
+	b2PrismaticJoint* CreateDock();
+
 	// Create Flippers
 	void BuildLeftFlippers(p2List<PhysBody*>* leftKickers);
 	void BuildRightFlippers(p2List<PhysBody*>* RightKickers);
