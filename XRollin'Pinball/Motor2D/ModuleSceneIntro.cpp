@@ -30,6 +30,11 @@ bool ModuleSceneIntro::Start()
 	map_texture = App->textures->Load("textures/Map.png");
 	bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
 
+	innerCircles.add(App->physics->CreateInnerCircle(108, 71, 10.75f));
+	innerCircles.getLast()->data->listener = this;
+	innerCircles.add(App->physics->CreateInnerCircle(142, 69, 10.75f));
+	innerCircles.getLast()->data->listener = this;
+
 	return ret;
 }
 
@@ -48,7 +53,7 @@ update_status ModuleSceneIntro::Update()
 
 	if(App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
 	{
-		circles.add(App->physics->CreateCircle(App->input->GetMouseX(), App->input->GetMouseY(), 3));
+		circles.add(App->physics->CreateCircle(App->input->GetMouseX(), App->input->GetMouseY(), 6.5f));
 		circles.getLast()->data->listener = this;
 	}
 
