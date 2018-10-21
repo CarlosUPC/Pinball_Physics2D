@@ -2,6 +2,9 @@
 #include "Module.h"
 #include "Globals.h"
 #include "p2Point.h"
+#include "ModuleTextures.h"
+#include "ModulePhysics.h"
+#include "ModuleInput.h"
 
 class ModulePlayer : public Module
 {
@@ -14,5 +17,6 @@ public:
 	bool CleanUp();
 
 public:
+
 
 };

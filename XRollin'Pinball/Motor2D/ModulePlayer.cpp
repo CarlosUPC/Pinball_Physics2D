@@ -13,6 +13,8 @@ ModulePlayer::~ModulePlayer()
 bool ModulePlayer::Start()
 {
 	LOG("Loading player");
+
+	
 	return true;
 }
 
@@ -27,6 +29,10 @@ bool ModulePlayer::CleanUp()
 // Update: draw background
 update_status ModulePlayer::Update()
 {
+	if ((App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT))
+	{
+		App->physics->FlippersForce(b2Vec2(0, 50), b2Vec2(0, 0), LEFT);
+	}
 	return UPDATE_CONTINUE;
 }
 

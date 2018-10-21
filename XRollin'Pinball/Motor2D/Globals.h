@@ -20,6 +20,12 @@ enum update_status
 	UPDATE_ERROR
 };
 
+enum sides
+{
+	RIGHT,
+	LEFT
+};
+
 // Configuration -----------
 #define SCREEN_WIDTH 434
 #define SCREEN_HEIGHT 420

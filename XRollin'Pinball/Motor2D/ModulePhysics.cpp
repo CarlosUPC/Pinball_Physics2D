@@ -31,27 +31,10 @@ bool ModulePhysics::Start()
 	world = new b2World(b2Vec2(GRAVITY_X, -GRAVITY_Y));
 	world->SetContactListener(this);
 
-	//// needed to create joints like mouse joint
-	//b2BodyDef bd;
-	//ground = world->CreateBody(&bd);
+	leftFlippers = new p2List<PhysBody*>;
+	rightFlippers = new p2List<PhysBody*>;
 
-	//// big static circle as "ground" in the middle of the screen
-	//int x = SCREEN_WIDTH / 2;
-	//int y = SCREEN_HEIGHT / 1.5f;
-	//int diameter = SCREEN_WIDTH / 2;
 
-	//b2BodyDef body;
-	//body.type = b2_staticBody;
-	//body.position.Set(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y));
-
-	//big_ball = world->CreateBody(&body);
-
-	//b2CircleShape shape;
-	//shape.m_radius = PIXEL_TO_METERS(diameter) * 0.5f;
-
-	//b2FixtureDef fixture;
-	//fixture.shape = &shape;
-	//big_ball->CreateFixture(&fixture);
 
 	int map_coords[102] = {
 	72, 419,
@@ -275,7 +258,8 @@ bool ModulePhysics::Start()
 	map_10->body->SetType(b2_staticBody);
 	
 
-	
+	BuildLeftFlippers(leftFlippers);
+
 	return true;
 }
 
@@ -348,10 +332,10 @@ PhysBody* ModulePhysics::CreateInnerCircle(int x, int y, int radius)
 	return pbody;
 }
 
-PhysBody* ModulePhysics::CreateRectangle(int x, int y, int width, int height)
+PhysBody* ModulePhysics::CreateRectangle(int x, int y, int width, int height,b2BodyType type)
 {
 	b2BodyDef body;
-	body.type = b2_dynamicBody;
+	body.type = type;
 	body.position.Set(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y));
 
 	b2Body* b = world->CreateBody(&body);
@@ -432,6 +416,90 @@ PhysBody* ModulePhysics::CreateChain(int x, int y, int* points, int size)
 	pbody->width = pbody->height = 0;
 
 	return pbody;
+}
+
+PhysBody* ModulePhysics::CreatePolygon(int x, int y, int* points, int size, float dens, int rest, int filterIndex, b2BodyType type)
+{
+	b2BodyDef body;
+	body.type = type;
+	body.position.Set(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y));
+
+	b2Body* b = world->CreateBody(&body);
+	b2PolygonShape shape;
+
+	b2Vec2* p = new b2Vec2[size / 2];
+
+	for (uint i = 0; i < size / 2; ++i)
+	{
+		p[i].x = PIXEL_TO_METERS(points[i * 2 + 0]);
+		p[i].y = PIXEL_TO_METERS(points[i * 2 + 1]);
+	}
+	shape.Set(p, size / 2);
+
+	b2FixtureDef fixture;
+	fixture.shape = &shape;
+	fixture.density = dens;
+	fixture.restitution = rest;
+	fixture.filter.groupIndex = filterIndex;
+
+	b->CreateFixture(&fixture);
+
+	PhysBody* pbody = new PhysBody();
+	pbody->body = b;
+	b->SetUserData(pbody);
+	pbody->width = 0;
+	pbody->height = 0;
+
+	return pbody;
+}
+
+void ModulePhysics::BuildLeftFlippers(p2List<PhysBody*>* leftFlippers)
+{
+	
+	PhysBody* flipper = CreateRectangle(111, 382, 30, 7, b2_dynamicBody); 
+	PhysBody* gear = CreateRectangle(68, 382, 1, 1, b2_staticBody); 
+
+	b2RevoluteJointDef revolute_def;
+
+	revolute_def.bodyA = gear->body;
+	revolute_def.bodyB = flipper->body;
+
+	revolute_def.localAnchorB = b2Vec2(-0.25, 0.0);
+	revolute_def.enableLimit = true;
+	revolute_def.lowerAngle = -(0.1);
+	revolute_def.upperAngle = (0.5);
+	revolute_def.collideConnected = false;
+
+	revolute_joint = (b2RevoluteJoint*)world->CreateJoint(&revolute_def);
+	leftFlippers->add(flipper);
+
+} 	
+
+void ModulePhysics::FlippersForce(b2Vec2 vectforce, b2Vec2 posit, sides rl) {
+
+
+	if (rl == LEFT)
+	{
+		p2List_item<PhysBody*>* item = leftFlippers->getFirst();
+		while (item != nullptr)
+		{
+			item->data->body->ApplyForce(vectforce, posit, true);
+			item = item->next;
+		}
+	}
+	else if (rl == RIGHT) {
+		p2List_item<PhysBody*>* item = leftFlippers->getFirst();
+		while (item != nullptr)
+		{
+			item->data->body->ApplyForce(vectforce, posit, true);
+			item = item->next;
+		}
+	}
+}
+
+p2List<PhysBody*>* ModulePhysics::GetLeftFlippers()
+{
+	return leftFlippers;
 }
 
 // 

@@ -43,13 +43,20 @@ public:
 	bool CleanUp();
 
 	PhysBody* CreateCircle(int x, int y, int radius);
-	PhysBody* CreateRectangle(int x, int y, int width, int height);
+	PhysBody* CreateRectangle(int x, int y, int width, int height,b2BodyType type);
 	PhysBody* CreateRectangleSensor(int x, int y, int width, int height);
 	PhysBody* CreateChain(int x, int y, int* points, int size);
+	PhysBody* CreatePolygon(int x, int y, int* points, int size, float dens, int rest, int filterIndex, b2BodyType type);
 	PhysBody* CreateInnerCircle(int x, int y, int radius);
+	
 
+	void BuildLeftFlippers(p2List<PhysBody*>* leftKickers);
+	
 	// b2ContactListener ---
 	void BeginContact(b2Contact* contact);
+
+	p2List<PhysBody*>* GetLeftFlippers();
+	void FlippersForce(b2Vec2 vectforce, b2Vec2 posit, sides rl);
 
 private:
 
@@ -58,6 +65,11 @@ private:
 	b2MouseJoint* mouse_joint;
 	b2Body* ground;
 	b2DistanceJoint* distance_joint;
+
+	p2List<PhysBody*>* leftFlippers;
+	p2List<PhysBody*>* rightFlippers;
+
+	b2RevoluteJoint* revolute_joint;
 
 public:
 	b2Body* big_ball;
