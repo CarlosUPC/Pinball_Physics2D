@@ -60,4 +60,5 @@ private:
 
 public:
 	b2Body* big_ball;
+	PhysBody* map;
 };

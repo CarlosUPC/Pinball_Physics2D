@@ -31,28 +31,84 @@ bool ModulePhysics::Start()
 	world = new b2World(b2Vec2(GRAVITY_X, -GRAVITY_Y));
 	world->SetContactListener(this);
 
-	// needed to create joints like mouse joint
-	b2BodyDef bd;
-	ground = world->CreateBody(&bd);
+	//// needed to create joints like mouse joint
+	//b2BodyDef bd;
+	//ground = world->CreateBody(&bd);
 
-	// big static circle as "ground" in the middle of the screen
-	int x = SCREEN_WIDTH / 2;
-	int y = SCREEN_HEIGHT / 1.5f;
-	int diameter = SCREEN_WIDTH / 2;
+	//// big static circle as "ground" in the middle of the screen
+	//int x = SCREEN_WIDTH / 2;
+	//int y = SCREEN_HEIGHT / 1.5f;
+	//int diameter = SCREEN_WIDTH / 2;
 
-	b2BodyDef body;
-	body.type = b2_staticBody;
-	body.position.Set(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y));
+	//b2BodyDef body;
+	//body.type = b2_staticBody;
+	//body.position.Set(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y));
 
-	big_ball = world->CreateBody(&body);
+	//big_ball = world->CreateBody(&body);
 
-	b2CircleShape shape;
-	shape.m_radius = PIXEL_TO_METERS(diameter) * 0.5f;
+	//b2CircleShape shape;
+	//shape.m_radius = PIXEL_TO_METERS(diameter) * 0.5f;
 
-	b2FixtureDef fixture;
-	fixture.shape = &shape;
-	big_ball->CreateFixture(&fixture);
+	//b2FixtureDef fixture;
+	//fixture.shape = &shape;
+	//big_ball->CreateFixture(&fixture);
 
+	int map_coords[102] = {
+	72, 419,
+	0, 375,
+	0, 291,
+	14, 275,
+	14, 250,
+	32, 203,
+	3, 104,
+	1, 77,
+	1, 24,
+	4, 15,
+	12, 9,
+	23, 9,
+	33, 16,
+	35, 23,
+	36, 45,
+	37, 63,
+	38, 76,
+	39, 89,
+	46, 112,
+	49, 110,
+	42, 89,
+	37, 26,
+	37, 13,
+	38, 6,
+	46, 2,
+	56, 7,
+	57, 21,
+	59, 49,
+	63, 68,
+	72, 87,
+	74, 86,
+	65, 66,
+	61, 49,
+	62, 27,
+	69, 13,
+	79, 4,
+	89, 0,
+	162, 0,
+	184, 5,
+	203, 16,
+	217, 29,
+	228, 44,
+	235, 60,
+	241, 76,
+	241, 420,
+	224, 420,
+	223, 186,
+	187, 267,
+	207, 293,
+	207, 375,
+	136, 419
+	};
+
+	map = CreateChain(0, 0, map_coords, 102);
+	map->body->SetType(b2_staticBody);
 	return true;
 }
 
