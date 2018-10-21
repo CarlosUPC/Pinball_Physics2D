@@ -3,6 +3,7 @@
 #include "ModuleInput.h"
 #include "ModuleRender.h"
 #include "ModulePhysics.h"
+#include "ModuleSceneIntro.h"
 #include "p2Point.h"
 #include "math.h"
 
@@ -16,6 +17,7 @@ ModulePhysics::ModulePhysics(Application* app, bool start_enabled) : Module(app,
 {
 	world = NULL;
 	mouse_joint = NULL;
+	revolute_joint = NULL;
 	debug = false;
 }
 
@@ -31,8 +33,8 @@ bool ModulePhysics::Start()
 	world = new b2World(b2Vec2(GRAVITY_X, -GRAVITY_Y));
 	world->SetContactListener(this);
 
-	leftFlippers = new p2List<PhysBody*>;
-	rightFlippers = new p2List<PhysBody*>;
+	App->scene_intro->leftFlippers = new p2List<PhysBody*>;
+	App->scene_intro->rightFlippers = new p2List<PhysBody*>;
 
 
 
@@ -258,8 +260,8 @@ bool ModulePhysics::Start()
 	map_10->body->SetType(b2_staticBody);
 	
 
-	BuildLeftFlippers(leftFlippers);
-	BuildRightFlippers(rightFlippers);
+	BuildLeftFlippers(App->scene_intro->leftFlippers);
+	BuildRightFlippers(App->scene_intro->rightFlippers);
 
 	return true;
 }
@@ -501,7 +503,7 @@ void ModulePhysics::FlippersForce(b2Vec2 vectforce, b2Vec2 posit, sides rl) {
 
 	if (rl == LEFT)
 	{
-		p2List_item<PhysBody*>* item = leftFlippers->getFirst();
+		p2List_item<PhysBody*>* item = App->scene_intro->leftFlippers->getFirst();
 		while (item != nullptr)
 		{
 			item->data->body->ApplyForce(vectforce, posit, true);
@@ -509,7 +511,7 @@ void ModulePhysics::FlippersForce(b2Vec2 vectforce, b2Vec2 posit, sides rl) {
 		}
 	}
 	else if (rl == RIGHT) {
-		p2List_item<PhysBody*>* item = rightFlippers->getFirst();
+		p2List_item<PhysBody*>* item = App->scene_intro->rightFlippers->getFirst();
 		while (item != nullptr)
 		{
 			item->data->body->ApplyForce(vectforce, posit, true);
@@ -518,10 +520,10 @@ void ModulePhysics::FlippersForce(b2Vec2 vectforce, b2Vec2 posit, sides rl) {
 	}
 }
 
-p2List<PhysBody*>* ModulePhysics::GetLeftFlippers()
-{
-	return leftFlippers;
-}
+//p2List<PhysBody*>* ModulePhysics::GetLeftFlippers()
+//{
+//	return leftFlippers;
+//}
 
 // 
 update_status ModulePhysics::PostUpdate()

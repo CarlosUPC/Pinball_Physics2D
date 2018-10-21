@@ -23,11 +23,17 @@ public:
 	p2List<PhysBody*> ricks;
 	p2List<PhysBody*> innerCircles;
 
+	p2List<PhysBody*>* leftFlippers;
+	p2List<PhysBody*>* rightFlippers;
+
 	SDL_Texture* circle;
 	SDL_Texture* box;
 	SDL_Texture* rick;
 
 	SDL_Texture* map_texture;
 	SDL_Texture* ball_texture;
+
+	SDL_Texture* left_flipper;
+	SDL_Texture* right_flipper;
 	uint bonus_fx;
 };

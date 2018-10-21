@@ -9,7 +9,7 @@
 
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
-	circle = box = rick = NULL;
+	circle = box = rick = left_flipper = left_flipper = NULL;
 }
 
 ModuleSceneIntro::~ModuleSceneIntro()
@@ -29,6 +29,9 @@ bool ModuleSceneIntro::Start()
 	ball_texture = App->textures->Load("textures/Ball.png");
 	map_texture = App->textures->Load("textures/Map.png");
 	bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
+
+	left_flipper = App->textures->Load("textures/LeftFlipper.png");
+	right_flipper = App->textures->Load("textures/RightFlipper.png");
 
 	innerCircles.add(App->physics->CreateInnerCircle(108, 71, 10.75f));
 	innerCircles.getLast()->data->listener = this;
@@ -133,6 +136,27 @@ update_status ModuleSceneIntro::Update()
 		int x, y;
 		c->data->GetPosition(x, y);
 		App->renderer->Blit(rick, x, y, NULL, 1.0f, c->data->GetRotation());
+		c = c->next;
+	}
+
+	c = leftFlippers->getFirst();
+
+	while (c != NULL)
+	{
+		int x, y;
+		c->data->GetPosition(x, y);
+		App->renderer->Blit(left_flipper, x - 5, y - 7, NULL, 1.0f, c->data->GetRotation() - 30);
+		
+		c = c->next;
+	}
+	c = rightFlippers->getFirst();
+
+	while (c != NULL)
+	{
+		int x, y;
+		c->data->GetPosition(x, y);
+		App->renderer->Blit(right_flipper, x + 3, y - 7, NULL, 1.0f, c->data->GetRotation() - 330);
+
 		c = c->next;
 	}
 

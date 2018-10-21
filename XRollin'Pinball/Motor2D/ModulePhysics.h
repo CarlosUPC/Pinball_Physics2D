@@ -67,8 +67,8 @@ private:
 	b2Body* ground;
 	b2DistanceJoint* distance_joint;
 
-	p2List<PhysBody*>* leftFlippers;
-	p2List<PhysBody*>* rightFlippers;
+	/*p2List<PhysBody*>* leftFlippers;
+	p2List<PhysBody*>* rightFlippers;*/
 
 	b2RevoluteJoint* revolute_joint;
 
