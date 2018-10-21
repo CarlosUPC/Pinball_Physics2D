@@ -259,6 +259,7 @@ bool ModulePhysics::Start()
 	
 
 	BuildLeftFlippers(leftFlippers);
+	BuildRightFlippers(rightFlippers);
 
 	return true;
 }
@@ -475,6 +476,26 @@ void ModulePhysics::BuildLeftFlippers(p2List<PhysBody*>* leftFlippers)
 
 } 	
 
+void ModulePhysics::BuildRightFlippers(p2List<PhysBody*>* rightKickers)
+{
+	PhysBody* flipper = CreateRectangle(160, 382, 30, 7, b2_dynamicBody);
+	PhysBody* gear = CreateRectangle(140, 382, 1, 1, b2_staticBody);
+
+	b2RevoluteJointDef revolute_def;
+	
+	revolute_def.bodyA = gear->body;
+	revolute_def.bodyB = flipper->body;
+
+	revolute_def.localAnchorB = b2Vec2(0.25, 0.0);
+	revolute_def.enableLimit = true;
+	revolute_def.lowerAngle = -(0.5);
+	revolute_def.upperAngle = (0.1);
+	revolute_def.collideConnected = false;
+
+	revolute_joint = (b2RevoluteJoint*)world->CreateJoint(&revolute_def);
+	rightKickers->add(flipper);
+}
+
 void ModulePhysics::FlippersForce(b2Vec2 vectforce, b2Vec2 posit, sides rl) {
 
 
@@ -488,7 +509,7 @@ void ModulePhysics::FlippersForce(b2Vec2 vectforce, b2Vec2 posit, sides rl) {
 		}
 	}
 	else if (rl == RIGHT) {
-		p2List_item<PhysBody*>* item = leftFlippers->getFirst();
+		p2List_item<PhysBody*>* item = rightFlippers->getFirst();
 		while (item != nullptr)
 		{
 			item->data->body->ApplyForce(vectforce, posit, true);

@@ -51,6 +51,7 @@ public:
 	
 
 	void BuildLeftFlippers(p2List<PhysBody*>* leftKickers);
+	void BuildRightFlippers(p2List<PhysBody*>* RightKickers);
 	
 	// b2ContactListener ---
 	void BeginContact(b2Contact* contact);
