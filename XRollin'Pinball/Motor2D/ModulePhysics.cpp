@@ -107,8 +107,175 @@ bool ModulePhysics::Start()
 	136, 419
 	};
 
+	// Element Orange 1
+	int Map_1[20] = {
+		158, 22,
+		158, 42,
+		214, 81,
+		215, 75,
+		212, 66,
+		204, 53,
+		194, 40,
+		182, 30,
+		169, 23,
+		160, 21
+	};
+	// Element Orange 2
+	int Map_2[32] = {
+		213, 116,
+		192, 158,
+		198, 164,
+		198, 168,
+		182, 189,
+		176, 190,
+		169, 221,
+		159, 249,
+		162, 251,
+		182, 217,
+		198, 190,
+		204, 180,
+		208, 169,
+		212, 157,
+		214, 148,
+		215, 119
+	};
+
+	// Element Orange 3
+	int Map_3[66] = {
+		152, 195,
+		130, 188,
+		125, 185,
+		124, 175,
+		35, 131,
+		26, 107,
+		22, 87,
+		20, 29,
+		16, 29,
+		18, 87,
+		22, 110,
+		53, 195,
+		63, 197,
+		60, 177,
+		62, 173,
+		69, 173,
+		76, 177,
+		81, 182,
+		84, 201,
+		88, 206,
+		116, 222,
+		122, 221,
+		125, 204,
+		128, 200,
+		136, 200,
+		145, 208,
+		144, 220,
+		138, 236,
+		138, 241,
+		142, 240,
+		148, 221,
+		149, 212,
+		153, 200
+	};
+
+	// Element Red 1
+	int Map_4_red[14] = {
+		40, 297,
+		35, 297,
+		34, 339,
+		55, 351,
+		60, 351,
+		61, 346,
+		41, 301
+	};
+
+	//Element Red 2
+	int Map_5_red[14] = {
+		172, 297,
+		167, 297,
+		145, 346,
+		146, 351,
+		151, 352,
+		173, 338,
+		173, 301
+	};
+
+	// Element stick 1
+	int Map_6_stick[10] = {
+		103, 21,
+		107, 21,
+		107, 42,
+		103, 42,
+		103, 23
+	};
+
+	// Element stick 2
+	int Map_7_stick[10] = {
+		121, 19,
+		125, 19,
+		125, 40,
+		121, 40,
+		121, 22
+	};
+
+	// Element stick 3
+	int Map_8_stick[10] = {
+		139, 18,
+		143, 18,
+		143, 40,
+		139, 40,
+		139, 21
+	};
+
+	// Element stickL 1
+	int Map_9_stickL[16] = {
+		19, 307,
+		15, 307,
+		15, 352,
+		54, 376,
+		58, 376,
+		58, 372,
+		20, 349,
+		20, 311
+	};
+
+	// Element stickL 2
+	int Map_10_stickL[14] = {
+		188, 308,
+		192, 308,
+		192, 352,
+		152, 377,
+		148, 373,
+		188, 349,
+		188, 311
+	};
 	map = CreateChain(0, 0, map_coords, 102);
+	
+	map_1 = CreateChain(0, 0, Map_1, 20);
+	map_2 = CreateChain(0, 0, Map_2, 32);
+	map_3 = CreateChain(0, 0, Map_3, 66);
+	map_4 = CreateChain(0, 0, Map_4_red, 14);
+	map_5 = CreateChain(0, 0, Map_5_red, 14);
+	map_6 = CreateChain(0, 0, Map_6_stick, 10);
+	map_7 = CreateChain(0, 0, Map_7_stick, 10);
+	map_8 = CreateChain(0, 0, Map_8_stick, 10);
+	map_9 = CreateChain(0, 0, Map_9_stickL, 16);
+	map_10 = CreateChain(0, 0, Map_10_stickL, 14);
+	
 	map->body->SetType(b2_staticBody);
+
+	map_1->body->SetType(b2_staticBody);
+	map_2->body->SetType(b2_staticBody);
+	map_3->body->SetType(b2_staticBody);
+	map_4->body->SetType(b2_staticBody);
+	map_5->body->SetType(b2_staticBody);
+	map_6->body->SetType(b2_staticBody);
+	map_7->body->SetType(b2_staticBody);
+	map_8->body->SetType(b2_staticBody);
+	map_9->body->SetType(b2_staticBody);
+	map_10->body->SetType(b2_staticBody);
+	
+
+	
 	return true;
 }
 

@@ -62,4 +62,15 @@ private:
 public:
 	b2Body* big_ball;
 	PhysBody* map;
+	PhysBody* map_1;
+	PhysBody* map_2;
+	PhysBody* map_3;
+	PhysBody* map_4;
+	PhysBody* map_5;
+	PhysBody* map_6;
+	PhysBody* map_7;
+	PhysBody* map_8;
+	PhysBody* map_9;
+	PhysBody* map_10;
+	
 };
