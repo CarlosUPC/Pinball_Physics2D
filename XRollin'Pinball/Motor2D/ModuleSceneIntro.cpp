@@ -44,6 +44,7 @@ bool ModuleSceneIntro::Start()
 	innerCircles.add(App->physics->CreateInnerCircle(142, 69, 10.75f));
 	innerCircles.getLast()->data->listener = this;
 
+
 	return ret;
 }
 
@@ -191,11 +192,6 @@ update_status ModuleSceneIntro::Update()
 			game_started = true;
 			startgame_texture = nullptr;
 		}
-	}
-
-	if (c->data->body->GetPosition().y == 400)
-	{
-		App->renderer->Blit(startgame_texture, 365, 276);
 	}
 	
 

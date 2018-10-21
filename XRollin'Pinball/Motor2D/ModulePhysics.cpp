@@ -36,8 +36,8 @@ bool ModulePhysics::Start()
 
 	App->scene_intro->leftFlippers = new p2List<PhysBody*>;
 	App->scene_intro->rightFlippers = new p2List<PhysBody*>;
-	tex = App->textures->Load("textures/start_game.png");
 
+	
 
 	int map_coords[102] = {
 	72, 419,
@@ -303,11 +303,16 @@ PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius)
 
 	b->CreateFixture(&fixture);
 
+	PhysBody* test_ball = CreateCircle(x, y, radius);
 	PhysBody* pbody = new PhysBody();
 	pbody->body = b;
 	b->SetUserData(pbody);
 	pbody->width = pbody->height = radius;
 
+	// Lose condition
+
+	/*if (body.position.y == 400)
+		App->player->is_dead = true;*/
 
 	return pbody;
 }

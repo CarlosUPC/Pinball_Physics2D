@@ -43,6 +43,7 @@ update_status ModulePlayer::Update()
 	{
 		LOG("IS DEAD!!!!");
 	}
+
 	return UPDATE_CONTINUE;
 }
 
