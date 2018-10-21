@@ -26,14 +26,16 @@ public:
 	p2List<PhysBody*>* leftFlippers;
 	p2List<PhysBody*>* rightFlippers;
 
-	SDL_Texture* circle;
-	SDL_Texture* box;
-	SDL_Texture* rick;
+	SDL_Texture* circle = nullptr;
+	SDL_Texture* box = nullptr;
+	SDL_Texture* rick = nullptr;
 
-	SDL_Texture* map_texture;
-	SDL_Texture* ball_texture;
+	SDL_Texture* map_texture = nullptr;
+	SDL_Texture* ball_texture = nullptr;
+	SDL_Texture* startgame_texture = nullptr;
+	bool game_started = false;
 
-	SDL_Texture* left_flipper;
-	SDL_Texture* right_flipper;
+	SDL_Texture* left_flipper = nullptr;
+	SDL_Texture* right_flipper = nullptr;
 	uint bonus_fx;
 };
