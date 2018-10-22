@@ -32,6 +32,7 @@ bool ModuleSceneIntro::Start()
 	map_texture = App->textures->Load("textures/Map.png");
 	dock_texture = App->textures->Load("textures/Dock.png");
 	startgame_texture = App->textures->Load("textures/start_game.png");
+	insertCoin_texture = App->textures->Load("textures/InsertCoin.png");
 	bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
 
 	//Load Lower flippers
@@ -69,6 +70,10 @@ update_status ModuleSceneIntro::Update()
 {
 	App->renderer->Blit(map_texture, 0, 0);
 	App->renderer->Blit(startgame_texture, 365, 276);
+
+	if(!game_started)
+	App->renderer->Blit(insertCoin_texture, 257, 104);
+
 
 	//Print Dock texture
 	int x, y;
