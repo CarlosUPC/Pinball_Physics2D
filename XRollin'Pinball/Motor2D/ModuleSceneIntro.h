@@ -49,6 +49,11 @@ public:
 	char score_text[10];
 	char lifes_text[10];
 
+	SDL_Rect ballrect;
+	iPoint ball_pos;
+	PhysBody* test_ball = nullptr;
+
+
 	int score_font;
 	int lifes_font;
 };

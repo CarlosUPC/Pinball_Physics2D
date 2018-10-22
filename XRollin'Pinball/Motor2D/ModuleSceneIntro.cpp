@@ -52,6 +52,17 @@ bool ModuleSceneIntro::Start()
 	score_font = App->fonts->Load("textures/Score.png", "0123456789", 1);
 	lifes_font = App->fonts->Load("textures/Lives.png", "0123", 1);
 
+	// BALL
+	ballrect.x = 0;
+	ballrect.y = 0;
+	ballrect.w = 12;
+	ballrect.h = 12;
+
+	ball_pos.x = 240;
+	ball_pos.y = 350;
+
+	test_ball = App->physics->CreateCircle(ball_pos.x, ball_pos.y, 6.5f);
+
 	return ret;
 }
 
@@ -71,6 +82,7 @@ update_status ModuleSceneIntro::Update()
 	App->renderer->Blit(map_texture, 0, 0);
 	App->renderer->Blit(startgame_texture, 365, 276);
 
+
 	if(!game_started)
 	App->renderer->Blit(insertCoin_texture, 257, 104);
 
@@ -88,6 +100,20 @@ update_status ModuleSceneIntro::Update()
 			circles.getLast()->data->listener = this;
 		}
 	}
+
+	// LOSE CONDITION
+
+	if (ball_pos.y >= 408)
+	{
+		App->physics->world->DestroyBody(test_ball->body);
+		App->renderer->Blit(startgame_texture, 365, 276);
+
+		test_ball = App->physics->CreateCircle(240, 350, 6.5f);
+	}
+
+	test_ball->GetPosition(ball_pos.x, ball_pos.y);
+	test_ball->listener = this;
+	App->renderer->Blit(ball_texture, ball_pos.x, ball_pos.y, &ballrect);
 	
 	if(App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
 	{
