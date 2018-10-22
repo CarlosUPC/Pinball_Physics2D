@@ -90,5 +90,6 @@ public:
 	PhysBody* map_9;
 	PhysBody* map_10;
 
-	
+	PhysBody* dock;
+	PhysBody* dockBase;
 };

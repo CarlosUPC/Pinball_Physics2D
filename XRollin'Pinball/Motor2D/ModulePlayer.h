@@ -23,6 +23,7 @@ public:
 	b2PrismaticJoint* dock;
 
 private:
-	float dockPosY = 0;
+	float dockPosY = 0.0f;
 	b2Vec2 displacement;
+	
 };

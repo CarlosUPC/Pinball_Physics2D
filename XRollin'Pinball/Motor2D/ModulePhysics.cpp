@@ -572,8 +572,8 @@ void ModulePhysics::FlippersForce(b2Vec2 vectforce, b2Vec2 posit, sides rl) {
 
 b2PrismaticJoint* ModulePhysics::CreateDock() {
 
-	PhysBody* dock = App->physics->CreateRectangle(232, 408, 14, 10, b2_dynamicBody);
-	PhysBody* dockBase = App->physics->CreateRectangle(232, 440, 10, 10, b2_staticBody);
+	dock = App->physics->CreateRectangle(232, 408, 14, 10, b2_dynamicBody);
+	dockBase = App->physics->CreateRectangle(232, 440, 10, 10, b2_staticBody);
 
 	b2PrismaticJointDef prismaticJointDef;
 	prismaticJointDef.Initialize(dock->body, dockBase->body, dockBase->body->GetWorldCenter(), b2Vec2(0, 1));

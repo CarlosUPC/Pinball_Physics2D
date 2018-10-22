@@ -36,9 +36,7 @@ public:
 	SDL_Texture* dock_texture = nullptr;
 	bool game_started = false;
 
-
 	
-
 	SDL_Texture* Upleft_flipper = nullptr;
 	SDL_Texture* Upright_flipper = nullptr;
 

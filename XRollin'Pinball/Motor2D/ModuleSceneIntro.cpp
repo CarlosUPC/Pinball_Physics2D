@@ -6,6 +6,7 @@
 #include "ModuleTextures.h"
 #include "ModuleAudio.h"
 #include "ModulePhysics.h"
+#include "ModulePlayer.h"
 
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -62,7 +63,10 @@ update_status ModuleSceneIntro::Update()
 {
 	App->renderer->Blit(map_texture, 0, 0);
 	App->renderer->Blit(startgame_texture, 365, 276);
-	App->renderer->Blit(dock_texture, 225, 390);
+
+	int x, y;
+	App->physics->dock->GetPosition(x,y);
+	App->renderer->Blit(dock_texture, x, y);
 
 	if (game_started)
 	{
