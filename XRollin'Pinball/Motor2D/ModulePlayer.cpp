@@ -18,13 +18,12 @@ bool ModulePlayer::Start()
 
 	dock = App->physics->CreateDock();
 	displacement = { 0, dockPosY };
+
 	score = 0;
-<<<<<<< HEAD
 	lives = 4;
-=======
-	lives = 0;
+
 	flipper_fx = App->audio->LoadFx("pinball/flipper_fx.wav");
->>>>>>> ca1d537dc5e21b5d3913589488c72a15f243189e
+
 	return true;
 }
 

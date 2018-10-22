@@ -177,18 +177,7 @@ update_status ModuleSceneIntro::Update()
 		c = c->next;
 	}
 
-<<<<<<< HEAD
-=======
-	if (App->input->GetMouseX() > 365 && App->input->GetMouseY() > 276 && App->input->GetMouseX() < 426 && App->input->GetMouseY() < 361)
-	{
-		if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN)
-		{
-			game_started = true;
-			App->player->lives = 0;
-		}
-	}
->>>>>>> ca1d537dc5e21b5d3913589488c72a15f243189e
-	
+
 	//Print Font
 	sprintf_s(score_text, 10, "%7d", App->player->score);
 	sprintf_s(lifes_text, 10, "%7d", App->player->lives);
