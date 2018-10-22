@@ -23,6 +23,8 @@ public:
 
 	uint			score = 0;
 	uint			lives = 0;
+	uint flipper_fx;
+	bool flipper_pressed = false;
 
 private:
 	float dockPosY = 0.0f;
