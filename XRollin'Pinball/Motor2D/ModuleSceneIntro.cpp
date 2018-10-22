@@ -8,7 +8,7 @@
 #include "ModulePhysics.h"
 #include "ModulePlayer.h"
 #include "ModuleWindow.h"
-
+#include "ModuleFonts.h"
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
 	circle = box = rick = left_flipper = left_flipper = NULL;
@@ -47,6 +47,9 @@ bool ModuleSceneIntro::Start()
 	innerCircles.add(App->physics->CreateInnerCircle(142, 69, 10.75f));
 	innerCircles.getLast()->data->listener = this;
 
+	// UI FONTS
+	score_font = App->fonts->Load("textures/Score.png", "0123456789", 1);
+	lifes_font = App->fonts->Load("textures/Lives.png", "0123", 1);
 
 	return ret;
 }
@@ -55,7 +58,9 @@ bool ModuleSceneIntro::Start()
 bool ModuleSceneIntro::CleanUp()
 {
 	LOG("Unloading Intro scene");
-
+	//Freeing fonts
+	App->fonts->UnLoad(score_font);
+	App->fonts->UnLoad(lifes_font);
 	return true;
 }
 
@@ -202,6 +207,17 @@ update_status ModuleSceneIntro::Update()
 		}
 	}
 	
+
+
+	//Print Font
+	sprintf_s(score_text, 10, "%7d", App->player->score);
+	sprintf_s(lifes_text, 10, "%7d", App->player->lives);
+
+	App->fonts->BlitText(325, 250, score_font, score_text);
+	App->fonts->BlitText(323, 282, lifes_font, lifes_text);
+
+
+	//Screen display
 	char score[64];
 	char lives[4];
 	char Title[64] = "PinBall Score: ";

@@ -44,4 +44,10 @@ public:
 	SDL_Texture* right_flipper = nullptr;
 
 	uint bonus_fx;
+
+	char score_text[10];
+	char lifes_text[10];
+
+	int score_font;
+	int lifes_font;
 };
