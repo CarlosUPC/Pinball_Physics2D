@@ -22,7 +22,13 @@ public:
 	b2PrismaticJoint* dock;
 
 	uint			score = 0;
+<<<<<<< HEAD
 	uint			lives = 4;
+=======
+	uint			lives = 0;
+	uint flipper_fx;
+	bool flipper_pressed = false;
+>>>>>>> ca1d537dc5e21b5d3913589488c72a15f243189e
 
 private:
 	float dockPosY = 0.0f;

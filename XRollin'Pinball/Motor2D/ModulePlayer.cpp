@@ -1,6 +1,7 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModulePlayer.h"
+#include "ModuleAudio.h"
 #include "ModuleSceneIntro.h"
 
 ModulePlayer::ModulePlayer(Application* app, bool start_enabled) : Module(app, start_enabled)
@@ -18,7 +19,12 @@ bool ModulePlayer::Start()
 	dock = App->physics->CreateDock();
 	displacement = { 0, dockPosY };
 	score = 0;
+<<<<<<< HEAD
 	lives = 4;
+=======
+	lives = 0;
+	flipper_fx = App->audio->LoadFx("pinball/flipper_fx.wav");
+>>>>>>> ca1d537dc5e21b5d3913589488c72a15f243189e
 	return true;
 }
 
@@ -48,20 +54,26 @@ update_status ModulePlayer::Update()
 			}
 	}
 
+	if ((App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN))
+		flipper_pressed = true;
 
 	if ((App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT))
 	{
 		App->physics->FlippersForce(b2Vec2(0, 50), b2Vec2(0, 0), LEFT);
 	}
 
+	if ((App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN))
+		flipper_pressed = true;
+
 	if ((App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT))
 	{
 		App->physics->FlippersForce(b2Vec2(0, -50), b2Vec2(0, 0), RIGHT);
 	}
 
-	if (is_dead)
+	if (flipper_pressed)
 	{
-		LOG("IS DEAD!!!!");
+		App->audio->PlayFx(flipper_fx);
+		flipper_pressed = false;
 	}
 
 	return UPDATE_CONTINUE;
