@@ -80,11 +80,14 @@ bool ModuleSceneIntro::CleanUp()
 update_status ModuleSceneIntro::Update()
 {
 	App->renderer->Blit(map_texture, 0, 0);
-	App->renderer->Blit(startgame_texture, 365, 276);
 
 
-	if(!game_started)
-	App->renderer->Blit(insertCoin_texture, 257, 104);
+	if (!game_started)
+	{
+		App->renderer->Blit(insertCoin_texture, 257, 104);
+		App->renderer->Blit(startgame_texture, 365, 276);
+	}
+	
 
 
 	//Print Dock texture
@@ -103,11 +106,18 @@ update_status ModuleSceneIntro::Update()
 
 	// LOSE CONDITION
 
-	if (ball_pos.y >= 468)
+	if (ball_pos.y >= 468 && App->player->lives < 4 )
 	{
 		App->physics->world->DestroyBody(test_ball->body);
-		App->renderer->Blit(startgame_texture, 365, 276);
+		test_ball = App->physics->CreateCircle(240, 350, 6.5f);
+		App->player->lives++;
+	}
 
+	if (ball_pos.y >= 468 && App->player->lives == 4)
+	{
+		App->physics->world->DestroyBody(test_ball->body);
+		App->player->lives = 0;
+		game_started = false;
 		test_ball = App->physics->CreateCircle(240, 350, 6.5f);
 	}
 
@@ -235,7 +245,7 @@ update_status ModuleSceneIntro::Update()
 		{
 			game_started = true;
 			App->player->lives = 1;
-			startgame_texture = nullptr;
+			//startgame_texture = nullptr;
 		}
 	}
 	

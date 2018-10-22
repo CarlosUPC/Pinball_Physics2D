@@ -33,20 +33,20 @@ bool ModulePlayer::CleanUp()
 // Update: draw background
 update_status ModulePlayer::Update()
 {
-	if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT) {
-		dockPosY += 0.00001f;
-		dock->GetBodyA()->ApplyLinearImpulse(displacement, { 0,0 }, 0);
-		dock->EnableMotor(false);
-	}
-	else
-		if (dockPosY != 0) {
-			dock->EnableMotor(true);
-			dockPosY = 0.0f;
-			
+	if (App->scene_intro->game_started == true)
+	{
+		if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT) {
+			dockPosY += 0.00001f;
+			dock->GetBodyA()->ApplyLinearImpulse(displacement, { 0,0 }, 0);
+			dock->EnableMotor(false);
 		}
+		else
+			if (dockPosY != 0) {
+				dock->EnableMotor(true);
+				dockPosY = 0.0f;
 
-
-
+			}
+	}
 
 
 	if ((App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT))

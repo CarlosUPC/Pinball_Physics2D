@@ -18,12 +18,11 @@ public:
 
 public:
 
-	uint lifes = 0;
 	bool is_dead = false;
 	b2PrismaticJoint* dock;
 
-	uint			score;
-	uint			lives;
+	uint			score = 0;
+	uint			lives = 0;
 
 private:
 	float dockPosY = 0.0f;
