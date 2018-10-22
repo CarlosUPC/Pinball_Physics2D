@@ -39,11 +39,9 @@ bool ModulePhysics::Start()
 
 	
 
-	int map_coords[106] = {
-	72, 421,
-	0, 375,
-	0, 291,
-	14, 275,
+	int map_coords[118] = {
+	0, 293,
+	14, 276,
 	14, 250,
 	32, 203,
 	3, 104,
@@ -90,9 +88,17 @@ bool ModulePhysics::Start()
 	187, 267,
 	207, 293,
 	207, 375,
-	133, 420,
-	133, 499,
-	74, 499
+	136, 419,
+	136, 498,
+	110, 498,
+	110, 420,
+	107, 415,
+	100, 415,
+	97, 420,
+	97, 498,
+	72, 498,
+	72, 420,
+	1, 375
 	};
 
 	// Element Orange 1
@@ -236,7 +242,7 @@ bool ModulePhysics::Start()
 		188, 349,
 		188, 311
 	};
-	map = CreateChain(0, 0, map_coords, 102);
+	map = CreateChain(0, 0, map_coords, 118);
 	
 	map_1 = CreateChain(0, 0, Map_1, 20);
 	map_2 = CreateChain(0, 0, Map_2, 32);

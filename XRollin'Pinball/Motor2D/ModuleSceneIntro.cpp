@@ -103,7 +103,7 @@ update_status ModuleSceneIntro::Update()
 
 	// LOSE CONDITION
 
-	if (ball_pos.y >= 408)
+	if (ball_pos.y >= 468)
 	{
 		App->physics->world->DestroyBody(test_ball->body);
 		App->renderer->Blit(startgame_texture, 365, 276);
