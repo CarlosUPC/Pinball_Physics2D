@@ -16,6 +16,8 @@ public:
 	update_status Update();
 	bool CleanUp();
 	void OnCollision(PhysBody* bodyA, PhysBody* bodyB);
+	void PlayerBall();
+	
 
 public:
 	p2List<PhysBody*> circles;
@@ -35,24 +37,22 @@ public:
 	SDL_Texture* startgame_texture = nullptr;
 	SDL_Texture* insertCoin_texture = nullptr;
 	SDL_Texture* dock_texture = nullptr;
+	
 	bool game_started = false;
-
+	bool create_ball = false;
 	
 	SDL_Texture* Upleft_flipper = nullptr;
 	SDL_Texture* Upright_flipper = nullptr;
 
 	SDL_Texture* left_flipper = nullptr;
 	SDL_Texture* right_flipper = nullptr;
-
+	PhysBody* toDestroy;
 	uint bonus_fx;
 
 	char score_text[10];
 	char lifes_text[10];
 
-	SDL_Rect ballrect;
-	iPoint ball_pos;
-	PhysBody* test_ball = nullptr;
-
+	PhysBody* end;
 
 	int score_font;
 	int lifes_font;

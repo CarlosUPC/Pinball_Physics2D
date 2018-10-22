@@ -52,19 +52,9 @@ bool ModuleSceneIntro::Start()
 	score_font = App->fonts->Load("textures/Score.png", "0123456789", 1);
 	lifes_font = App->fonts->Load("textures/Lives.png", "0123", 1);
 
-	// BALL
-	ballrect.x = 0;
-	ballrect.y = 0;
-	ballrect.w = 12;
-	ballrect.h = 12;
-
-	if (game_started)
-	{
-		ball_pos.x = 240;
-		ball_pos.y = 350;
-	}
+	//Death collider
+	end = App->physics->CreateRectangleSensor(110, 440, 100, 10);
 	
-	test_ball = App->physics->CreateCircle(ball_pos.x, ball_pos.y, 6.5f);
 
 	return ret;
 }
@@ -85,6 +75,17 @@ update_status ModuleSceneIntro::Update()
 	App->renderer->Blit(map_texture, 0, 0);
 
 
+	if (App->input->GetMouseX() > 365 && App->input->GetMouseY() > 276 && App->input->GetMouseX() < 426 && App->input->GetMouseY() < 361 && App->player->lives == 4)
+	{
+		if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN)
+		{
+			//GAME STARTS & CREATES A BALL
+			game_started = true;
+			create_ball = true;
+			App->player->lives = 1;
+		}
+	}
+
 	if (!game_started)
 	{
 		App->renderer->Blit(insertCoin_texture, 257, 104);
@@ -92,87 +93,17 @@ update_status ModuleSceneIntro::Update()
 	}
 	
 
-
 	//Print Dock texture
 	int x, y;
 	App->physics->dock->GetPosition(x,y);
 	App->renderer->Blit(dock_texture, x, y);
 
-	if (game_started)
+	if (game_started == true && create_ball && App->player->lives < 4)
 	{
-		if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
-		{
-			circles.add(App->physics->CreateCircle(App->input->GetMouseX(), App->input->GetMouseY(), 6.5f));
-			circles.getLast()->data->listener = this;
-		}
-	}
-
-	// LOSE CONDITION
-
-	if (ball_pos.y >= 468 && App->player->lives < 4 && game_started)
-	{
-		App->physics->world->DestroyBody(test_ball->body);
-		test_ball = App->physics->CreateCircle(240, 350, 6.5f);
-		App->player->lives++;
-	}
-
-	if (ball_pos.y >= 468 && App->player->lives == 4 && game_started)
-	{
-		App->physics->world->DestroyBody(test_ball->body);
-		App->player->lives = 0;
-		game_started = false;
-		test_ball = App->physics->CreateCircle(240, 350, 6.5f);
-	}
-
-	if (game_started)
-	{
-		test_ball->GetPosition(ball_pos.x, ball_pos.y);
-		test_ball->listener = this;
-		App->renderer->Blit(ball_texture, ball_pos.x, ball_pos.y, &ballrect);
+		PlayerBall();
 	}
 	
 	
-	if(App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
-	{
-		// Pivot 0, 0
-		int rick_head[64] = {
-			14, 36,
-			42, 40,
-			40, 0,
-			75, 30,
-			88, 4,
-			94, 39,
-			111, 36,
-			104, 58,
-			107, 62,
-			117, 67,
-			109, 73,
-			110, 85,
-			106, 91,
-			109, 99,
-			103, 104,
-			100, 115,
-			106, 121,
-			103, 125,
-			98, 126,
-			95, 137,
-			83, 147,
-			67, 147,
-			53, 140,
-			46, 132,
-			34, 136,
-			38, 126,
-			23, 123,
-			30, 114,
-			10, 102,
-			29, 90,
-			0, 75,
-			30, 62
-		};
-
-		ricks.add(App->physics->CreateChain(App->input->GetMouseX(), App->input->GetMouseY(), rick_head, 64));
-	}
-
 	// Prepare for raycast ------------------------------------------------------
 	
 	iPoint mouse;
@@ -246,17 +177,7 @@ update_status ModuleSceneIntro::Update()
 		c = c->next;
 	}
 
-	if (App->input->GetMouseX() > 365 && App->input->GetMouseY() > 276 && App->input->GetMouseX() < 426 && App->input->GetMouseY() < 361)
-	{
-		if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN)
-		{
-			game_started = true;
-			App->player->lives = 1;
-		}
-	}
 	
-
-
 	//Print Font
 	sprintf_s(score_text, 10, "%7d", App->player->score);
 	sprintf_s(lifes_text, 10, "%7d", App->player->lives);
@@ -282,7 +203,31 @@ update_status ModuleSceneIntro::Update()
 	return UPDATE_CONTINUE;
 }
 
+
 void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 {
+	if (bodyB == end) {
+		
+
+		App->physics->world->DestroyBody(circles.getLast()->data->body);
+		circles.getLast()->data = nullptr;
+		circles.clear();
+		App->player->lives++;
+		create_ball = true;
+
+		if (App->player->lives == 4)
+			game_started = false;
+
+		
+	}
+
 	App->audio->PlayFx(bonus_fx);
+}
+
+void ModuleSceneIntro::PlayerBall() {
+	circles.add(App->physics->CreateCircle(234, 350, 6.5f));
+	circles.getLast()->data->listener = this;
+	//circles.getLast()->data->body->SetBullet(true);
+
+	create_ball = false;
 }

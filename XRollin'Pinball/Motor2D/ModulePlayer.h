@@ -22,7 +22,7 @@ public:
 	b2PrismaticJoint* dock;
 
 	uint			score = 0;
-	uint			lives = 0;
+	uint			lives = 4;
 
 private:
 	float dockPosY = 0.0f;
