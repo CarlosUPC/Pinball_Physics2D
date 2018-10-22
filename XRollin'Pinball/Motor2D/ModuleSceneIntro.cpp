@@ -58,9 +58,12 @@ bool ModuleSceneIntro::Start()
 	ballrect.w = 12;
 	ballrect.h = 12;
 
-	ball_pos.x = 240;
-	ball_pos.y = 350;
-
+	if (game_started)
+	{
+		ball_pos.x = 240;
+		ball_pos.y = 350;
+	}
+	
 	test_ball = App->physics->CreateCircle(ball_pos.x, ball_pos.y, 6.5f);
 
 	return ret;
@@ -106,14 +109,14 @@ update_status ModuleSceneIntro::Update()
 
 	// LOSE CONDITION
 
-	if (ball_pos.y >= 468 && App->player->lives < 4 )
+	if (ball_pos.y >= 468 && App->player->lives < 4 && game_started)
 	{
 		App->physics->world->DestroyBody(test_ball->body);
 		test_ball = App->physics->CreateCircle(240, 350, 6.5f);
 		App->player->lives++;
 	}
 
-	if (ball_pos.y >= 468 && App->player->lives == 4)
+	if (ball_pos.y >= 468 && App->player->lives == 4 && game_started)
 	{
 		App->physics->world->DestroyBody(test_ball->body);
 		App->player->lives = 0;
@@ -121,9 +124,13 @@ update_status ModuleSceneIntro::Update()
 		test_ball = App->physics->CreateCircle(240, 350, 6.5f);
 	}
 
-	test_ball->GetPosition(ball_pos.x, ball_pos.y);
-	test_ball->listener = this;
-	App->renderer->Blit(ball_texture, ball_pos.x, ball_pos.y, &ballrect);
+	if (game_started)
+	{
+		test_ball->GetPosition(ball_pos.x, ball_pos.y);
+		test_ball->listener = this;
+		App->renderer->Blit(ball_texture, ball_pos.x, ball_pos.y, &ballrect);
+	}
+	
 	
 	if(App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
 	{
@@ -245,7 +252,6 @@ update_status ModuleSceneIntro::Update()
 		{
 			game_started = true;
 			App->player->lives = 1;
-			//startgame_texture = nullptr;
 		}
 	}
 	
