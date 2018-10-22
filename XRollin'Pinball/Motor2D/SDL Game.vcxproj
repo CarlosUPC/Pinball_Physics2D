@@ -72,6 +72,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\XRollin%27Pinball\Motor2D\ModuleFonts.h" />
     <ClInclude Include="Application.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="ModulePhysics.h" />
@@ -88,6 +89,7 @@
     <ClInclude Include="p2Point.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\XRollin%27Pinball\Motor2D\ModuleFonts.cpp" />
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="log.cpp" />
     <ClCompile Include="Main.cpp" />
