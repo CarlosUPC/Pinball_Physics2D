@@ -203,6 +203,7 @@ update_status ModuleSceneIntro::Update()
 		if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_DOWN)
 		{
 			game_started = true;
+			App->player->lives = 1;
 			startgame_texture = nullptr;
 		}
 	}

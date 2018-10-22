@@ -18,7 +18,7 @@ bool ModulePlayer::Start()
 	dock = App->physics->CreateDock();
 	displacement = { 0, dockPosY };
 	score = 0;
-	lives = 3;
+	lives = 0;
 	return true;
 }
 
