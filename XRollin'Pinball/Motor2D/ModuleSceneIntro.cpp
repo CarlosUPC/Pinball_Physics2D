@@ -64,6 +64,7 @@ update_status ModuleSceneIntro::Update()
 	App->renderer->Blit(map_texture, 0, 0);
 	App->renderer->Blit(startgame_texture, 365, 276);
 
+	//Print Dock texture
 	int x, y;
 	App->physics->dock->GetPosition(x,y);
 	App->renderer->Blit(dock_texture, x, y);
