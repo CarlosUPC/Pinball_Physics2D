@@ -7,6 +7,7 @@
 #include "ModuleAudio.h"
 #include "ModulePhysics.h"
 #include "ModulePlayer.h"
+#include "ModuleWindow.h"
 
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -201,7 +202,19 @@ update_status ModuleSceneIntro::Update()
 		}
 	}
 	
+	char score[64];
+	char lives[4];
+	char Title[64] = "PinBall Score: ";
+	char Num_lives[32] = "Lives: ";
+	
+	sprintf_s(score, "%d  ", App->player->score);
+	sprintf_s(lives, "%d", App->player->lives);
 
+	strcat_s(Title, score);
+	strcat_s(Title, Num_lives);
+	strcat_s(Title, lives);
+
+	App->window->SetTitle(Title);
 	return UPDATE_CONTINUE;
 }
 

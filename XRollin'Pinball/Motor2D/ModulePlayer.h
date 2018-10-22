@@ -22,6 +22,9 @@ public:
 	bool is_dead = false;
 	b2PrismaticJoint* dock;
 
+	uint			score;
+	uint			lives;
+
 private:
 	float dockPosY = 0.0f;
 	b2Vec2 displacement;
