@@ -32,7 +32,7 @@ public:
 
 	PhysBody* BlueSensors[7];
 	PhysBody* SmallBlueSensors[8];
-	PhysBody* ShinySensors[2];
+	PhysBody* ShinySensors[4];
 
 	SDL_Texture* circle = nullptr;
 	SDL_Texture* box = nullptr;
@@ -65,8 +65,8 @@ public:
 	Animation smallBlueSensor;
 	
 	Animation ShinySensor1; //Red Circle Bounce
-	Animation ShinySensor2; //Red Triangular Bounce
-
+	Animation ShinySensor2; //Red Left Triangular Bounce
+	Animation ShinySensor3; //Red Right Triangular Bounce
 
 	
 	bool BlueSensor_1 = false;
@@ -88,7 +88,8 @@ public:
 
 	bool ShinySensor_1 = false;
 	bool ShinySensor_2 = false;
-	
+	bool ShinySensor_3 = false;
+	bool ShinySensor_4 = false;
 
 	
 	bool game_started = false;
