@@ -84,11 +84,19 @@ public:
 	SDL_Texture* right_flipper = nullptr;
 	PhysBody* toDestroy;
 	uint bonus_fx;
+	uint red_circle_fx;
+	uint blue_circle_fx;
+	uint car_start_fx;
 
 	char score_text[10];
 	char lifes_text[10];
 
 	PhysBody* end;
+	PhysBody* red_circle_sensor1;
+	PhysBody* red_circle_sensor2;
+
+	PhysBody* blue_circle_sensor1;
+	PhysBody* blue_circle_sensor2;
 
 	int score_font;
 	int lifes_font;
