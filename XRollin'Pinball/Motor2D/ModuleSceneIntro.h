@@ -44,9 +44,14 @@ public:
 	SDL_Texture* startgame_texture = nullptr;
 	SDL_Texture* insertCoin_texture = nullptr;
 	SDL_Texture* dock_texture = nullptr;
+	
+	Animation arrow1;
+	Animation arrow2;
+	Animation arrow3;
+
+
 
 	Animation blueSensor;
-	
 	Animation smallBlueSensor;
 	
 	Animation ShinySensor1; //Red Circle Bounce

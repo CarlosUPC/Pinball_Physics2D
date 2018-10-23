@@ -13,6 +13,26 @@ ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Modul
 {
 	circle = box = rick = left_flipper = left_flipper = NULL;
 
+
+	arrow1.PushBack({ 15,1,12,9 });
+	arrow1.PushBack({ 3,14,11,10 });
+	arrow1.PushBack({ 2,1,11,10 });
+	arrow1.speed = 0.10f;
+	arrow1.loop = true;
+
+	arrow2.PushBack({ 2,1,11,10 });
+	arrow2.PushBack({ 15,1,12,9 });
+	arrow2.PushBack({ 3,14,11,10 });
+	arrow2.speed = 0.10f;
+	arrow2.loop = true;
+
+	arrow3.PushBack({ 3,14,11,10 });
+	arrow3.PushBack({ 2,1,11,10 });
+	arrow3.PushBack({ 15,1,12,9 });
+	arrow3.speed = 0.10f;
+	arrow3.loop = true;
+
+
 	//Blue sensors--------------------------------------------
 	blueSensor.PushBack({ 20,33,9,9 });
 	blueSensor.speed = 0.01f;
@@ -117,7 +137,12 @@ bool ModuleSceneIntro::CleanUp()
 update_status ModuleSceneIntro::Update()
 {
 	App->renderer->Blit(map_texture, 0, 0);
-
+	
+	if (game_started) {
+		App->renderer->Blit(sensors_texture, 109, 8, &(arrow1.GetCurrentFrame()));
+		App->renderer->Blit(sensors_texture, 126, 8, &(arrow2.GetCurrentFrame()));
+		App->renderer->Blit(sensors_texture, 144, 8, &(arrow3.GetCurrentFrame()));
+	}
 
 	if (App->input->GetMouseX() > 365 && App->input->GetMouseY() > 276 && App->input->GetMouseX() < 426 && App->input->GetMouseY() < 361 && App->player->lives == 4)
 	{
@@ -146,6 +171,7 @@ update_status ModuleSceneIntro::Update()
 	if (game_started == true && create_ball && App->player->lives < 4)
 	{
 		PlayerBall();
+		
 	}
 	
 	//------------------------------Print Blue Sensors---------------------------------//
