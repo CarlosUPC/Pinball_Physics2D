@@ -144,6 +144,8 @@ bool ModuleSceneIntro::Start()
 	BlueSensors[2] = App->physics->CreateRectangleSensor(113, 30, 10, 10);
 	BlueSensors[3] = App->physics->CreateRectangleSensor(131, 28, 10, 10);
 	BlueSensors[4] = App->physics->CreateRectangleSensor(149, 28, 10, 10);
+	BlueSensors[5] = App->physics->CreateRectangleSensor(9, 360, 10, 10);
+	BlueSensors[6] = App->physics->CreateRectangleSensor(198, 360, 10, 10);
 
 	SmallBlueSensors[0] = App->physics->CreateRectangleSensor(175, 59, 5, 5);
 	SmallBlueSensors[1] = App->physics->CreateRectangleSensor(187, 67, 5, 5);
@@ -258,6 +260,22 @@ update_status ModuleSceneIntro::Update()
 		if (blueSensor.current_frame == 0) {
 			blueSensor.Reset();
 			BlueSensor_5 = false;
+		}
+	}
+
+	if (BlueSensor_6 == true) {
+		App->renderer->Blit(sensors_texture, 3, 357, &(blueSensor.GetCurrentFrame()));
+		if (blueSensor.current_frame == 0) {
+			blueSensor.Reset();
+			BlueSensor_6 = false;
+		}
+	}
+
+	if (BlueSensor_7 == true) {
+		App->renderer->Blit(sensors_texture, 194, 357, &(blueSensor.GetCurrentFrame()));
+		if (blueSensor.current_frame == 0) {
+			blueSensor.Reset();
+			BlueSensor_7 = false;
 		}
 	}
 
@@ -457,6 +475,19 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 		App->player->score += 5;
 	}
 
+	if (bodyB == BlueSensors[5]) {
+		BlueSensor_6 = true;
+		App->player->score += 5;
+		App->audio->PlayFx(blue_circle_fx);
+	}
+
+	if (bodyB == BlueSensors[6]) {
+		BlueSensor_7 = true;
+		App->player->score += 5;
+		App->audio->PlayFx(blue_circle_fx);
+	}
+
+
 	// Small Blue Sensors-------------------------------------------------------
 	if (bodyB == SmallBlueSensors[0]) {
 		SmallBlueSensor_1 = true;
@@ -503,12 +534,12 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 	// Shiny Sensors--------------------------------------------------------------
 	if (bodyB == ShinySensors[0]) {
 		ShinySensor_1 = true;
-		
+		App->audio->PlayFx(red_circle_fx);
 		App->player->score += 10;
 	}
 	if (bodyB == ShinySensors[1]) {
 		ShinySensor_2 = true;
-	
+		App->audio->PlayFx(red_circle_fx);
 		App->player->score += 10;
 	}
 

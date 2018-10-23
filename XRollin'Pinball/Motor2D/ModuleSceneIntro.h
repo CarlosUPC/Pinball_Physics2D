@@ -30,7 +30,7 @@ public:
 	p2List<PhysBody*>* rightFlippers;
 
 
-	PhysBody* BlueSensors[5];
+	PhysBody* BlueSensors[7];
 	PhysBody* SmallBlueSensors[8];
 	PhysBody* ShinySensors[2];
 
@@ -74,6 +74,8 @@ public:
 	bool BlueSensor_3 = false;
 	bool BlueSensor_4 = false;
 	bool BlueSensor_5 = false;
+	bool BlueSensor_6 = false;
+	bool BlueSensor_7 = false;
 
 	bool SmallBlueSensor_1 = false;
 	bool SmallBlueSensor_2 = false;
