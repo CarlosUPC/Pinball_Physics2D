@@ -299,7 +299,7 @@ PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius)
 	b2BodyDef body;
 	body.type = b2_dynamicBody;
 	body.position.Set(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y));
-
+	
 	b2Body* b = world->CreateBody(&body);
 
 	b2CircleShape shape;
@@ -308,6 +308,7 @@ PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius)
 	fixture.shape = &shape;
 	fixture.density = 5.0f;
 	fixture.restitution = 0.01f;
+	
 
 	b->CreateFixture(&fixture);
 
@@ -350,9 +351,10 @@ PhysBody* ModulePhysics::CreateInnerCircle(int x, int y, int radius)
 	b2BodyDef body;
 	body.type = b2_staticBody;
 	body.position.Set(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y));
+	
 
 	b2Body* b = world->CreateBody(&body);
-
+	
 	b2CircleShape shape;
 	shape.m_radius = PIXEL_TO_METERS(radius);
 	b2FixtureDef fixture;
@@ -377,6 +379,8 @@ PhysBody* ModulePhysics::CreateRectangle(int x, int y, int width, int height,b2B
 	body.position.Set(PIXEL_TO_METERS(x), PIXEL_TO_METERS(y));
 
 	b2Body* b = world->CreateBody(&body);
+	
+
 	b2PolygonShape box;
 	box.SetAsBox(PIXEL_TO_METERS(width) * 0.5f, PIXEL_TO_METERS(height) * 0.5f);
 

@@ -74,6 +74,10 @@ ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Modul
 	blueSensor.PushBack({ 20,33,9,9 });
 	blueSensor.speed = 0.01f;
 
+	//flipper Blue sensors--------------------------------------------
+	flipperSensor.PushBack({ 51,51,12,12 });
+	flipperSensor.speed = 0.01f;
+
 	//Small blue sensors---------------------------------------
 	smallBlueSensor.PushBack({ 32,35,5,5 });
 	smallBlueSensor.speed = 0.01f;
@@ -106,7 +110,7 @@ bool ModuleSceneIntro::Start()
 	insertCoin_texture = App->textures->Load("textures/InsertCoin.png");
 	sensors_texture = App->textures->Load("textures/Sensors.png");
 	bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
-
+	flipperBouncer_texture = App->textures->Load("textures/bouncer_animation.png");
 	//Load Lower flippers
 	left_flipper = App->textures->Load("textures/LeftFlipper.png");
 	right_flipper = App->textures->Load("textures/RightFlipper.png");
@@ -177,6 +181,12 @@ update_status ModuleSceneIntro::Update()
 {
 	App->renderer->Blit(map_texture, 0, 0);
 	
+	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+	{
+		circles.add(App->physics->CreateCircle(App->input->GetMouseX(), App->input->GetMouseY(), 3));
+		circles.getLast()->data->listener = this;
+	}
+
 	if (game_started) {
 		App->renderer->Blit(sensors_texture, 109, 8, &(arrow1.GetCurrentFrame()));
 		App->renderer->Blit(sensors_texture, 126, 8, &(arrow2.GetCurrentFrame()));
@@ -263,20 +273,15 @@ update_status ModuleSceneIntro::Update()
 		}
 	}
 
+	//-----------------------------Print Flipper blue sensors---------------------------------//
 	if (BlueSensor_6 == true) {
-		App->renderer->Blit(sensors_texture, 3, 357, &(blueSensor.GetCurrentFrame()));
-		if (blueSensor.current_frame == 0) {
-			blueSensor.Reset();
-			BlueSensor_6 = false;
-		}
+
+		 App->renderer->Blit(sensors_texture, 1, 355, &(flipperSensor.GetCurrentFrame()));
 	}
 
 	if (BlueSensor_7 == true) {
-		App->renderer->Blit(sensors_texture, 194, 357, &(blueSensor.GetCurrentFrame()));
-		if (blueSensor.current_frame == 0) {
-			blueSensor.Reset();
-			BlueSensor_7 = false;
-		}
+
+		 App->renderer->Blit(sensors_texture, 192, 355, &(flipperSensor.GetCurrentFrame()));
 	}
 
 	//-----------------------------Print Small Blue Sensors---------------------------------------//
@@ -434,6 +439,16 @@ update_status ModuleSceneIntro::Update()
 
 void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 {
+	
+	for (int i = 0; i < 2; i++) {
+
+		if (bodyB == FlipperBouncers[i]) {
+
+			toDestroy = FlipperBouncers[i];
+			FlipperBouncers[i] = nullptr;
+		}
+	}
+
 	if (bodyB == end) {
 		
 		toDestroy = circles.getLast()->data;
@@ -558,9 +573,23 @@ void ModuleSceneIntro::Destroy() {
 }
 
 void ModuleSceneIntro::PlayerBall() {
+	
+	for (int i = 0; i < 2; i++) {
+		if (FlipperBouncers[i] != nullptr) {
+			App->physics->world->DestroyBody(FlipperBouncers[i]->body);
+		}
+	}
+	
 	circles.add(App->physics->CreateCircle(234, 350, 6.5f));
 	circles.getLast()->data->listener = this;
 	circles.getLast()->data->body->SetBullet(true);
 
+
+	FlipperBouncers[0] = App->physics->CreateRectangle(198, 360, 8, 12, b2_staticBody);
+	FlipperBouncers[0]->body->GetFixtureList()->SetRestitution(2.0f);
+	FlipperBouncers[1] = App->physics->CreateRectangle(9, 360, 8, 12, b2_staticBody);
+	FlipperBouncers[1]->body->GetFixtureList()->SetRestitution(2.0f);
+
 	create_ball = false;
 }
+

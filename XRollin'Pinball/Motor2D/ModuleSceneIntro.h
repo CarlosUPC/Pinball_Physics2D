@@ -19,6 +19,7 @@ public:
 	void OnCollision(PhysBody* bodyA, PhysBody* bodyB);
 	void PlayerBall();
 	void Destroy();
+	
 
 public:
 	p2List<PhysBody*> circles;
@@ -33,6 +34,7 @@ public:
 	PhysBody* BlueSensors[7];
 	PhysBody* SmallBlueSensors[8];
 	PhysBody* ShinySensors[2];
+	PhysBody* FlipperBouncers[2];
 
 	SDL_Texture* circle = nullptr;
 	SDL_Texture* box = nullptr;
@@ -44,6 +46,7 @@ public:
 	SDL_Texture* startgame_texture = nullptr;
 	SDL_Texture* insertCoin_texture = nullptr;
 	SDL_Texture* dock_texture = nullptr;
+	SDL_Texture* flipperBouncer_texture = nullptr;
 	
 	Animation arrow1;
 	Animation arrow2;
@@ -62,6 +65,7 @@ public:
 
 
 	Animation blueSensor;
+	Animation flipperSensor;
 	Animation smallBlueSensor;
 	
 	Animation ShinySensor1; //Red Circle Bounce
