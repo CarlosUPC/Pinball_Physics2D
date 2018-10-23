@@ -177,6 +177,7 @@ update_status ModuleSceneIntro::Update()
 		c = c->next;
 	}
 
+	Destroy();
 
 	//Print Font
 	sprintf_s(score_text, 10, "%7d", App->player->score);
@@ -208,9 +209,8 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 {
 	if (bodyB == end) {
 		
-
-		App->physics->world->DestroyBody(circles.getLast()->data->body);
-		circles.getLast()->data = nullptr;
+		toDestroy = circles.getLast()->data;
+		
 		circles.clear();
 		App->player->lives++;
 		create_ball = true;
@@ -222,6 +222,15 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 	}
 
 	App->audio->PlayFx(bonus_fx);
+}
+
+
+void ModuleSceneIntro::Destroy() {
+
+	if (toDestroy != nullptr) {
+		App->physics->world->DestroyBody(toDestroy->body);
+		toDestroy = nullptr;
+	}
 }
 
 void ModuleSceneIntro::PlayerBall() {
