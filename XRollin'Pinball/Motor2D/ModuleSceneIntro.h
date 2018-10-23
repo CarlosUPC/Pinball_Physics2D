@@ -53,6 +53,12 @@ public:
 	Animation arrow5;
 	Animation arrow6;
 
+	Animation arrow7;
+	Animation arrow8;
+	Animation arrow9;
+
+
+
 
 
 	Animation blueSensor;

@@ -17,39 +17,58 @@ ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Modul
 	arrow1.PushBack({ 15,1,12,9 });
 	arrow1.PushBack({ 3,14,11,10 });
 	arrow1.PushBack({ 2,1,11,10 });
-	arrow1.speed = 0.10f;
+	arrow1.speed = 0.15f;
 	arrow1.loop = true;
 
 	arrow2.PushBack({ 2,1,11,10 });
 	arrow2.PushBack({ 15,1,12,9 });
 	arrow2.PushBack({ 3,14,11,10 });
-	arrow2.speed = 0.10f;
+	arrow2.speed = 0.15f;
 	arrow2.loop = true;
 
 	arrow3.PushBack({ 3,14,11,10 });
 	arrow3.PushBack({ 2,1,11,10 });
 	arrow3.PushBack({ 15,1,12,9 });
-	arrow3.speed = 0.10f;
+	arrow3.speed = 0.15f;
 	arrow3.loop = true;
 
 	arrow4.PushBack({ 54, 2, 9, 10 });
 	arrow4.PushBack({ 31, 1, 8, 10 });
 	arrow4.PushBack({ 43, 2, 8, 9  });
-	arrow4.speed = 0.07f;
+	arrow4.speed = 0.08f;
 	arrow4.loop = true;
 
 	arrow5.PushBack({ 31, 1, 8, 10 });
 	arrow5.PushBack({ 43, 2, 8, 9 });
 	arrow5.PushBack({ 54, 2, 9, 10 });
-	arrow5.speed = 0.07f;
+	arrow5.speed = 0.08f;
 	arrow5.loop = true;
 
 	arrow6.PushBack({ 43, 2, 8, 9 });
 	arrow6.PushBack({ 54, 2, 9, 10 });
 	arrow6.PushBack({ 31, 1, 8, 10  });
-	arrow6.speed = 0.07f;
+	arrow6.speed = 0.08f;
 	arrow6.loop = true;
 
+	arrow7.PushBack({ 45, 17, 7, 7 });
+	arrow7.PushBack({ 55, 17, 7, 7 });
+	arrow7.PushBack({ 33, 17, 7, 7 });
+	arrow7.speed = 0.12f;
+	arrow7.loop = true;
+
+	arrow8.PushBack({ 33, 17, 7, 7 });
+	arrow8.PushBack({ 45, 17, 7, 7 });
+	arrow8.PushBack({ 55, 17, 7, 7 });
+	arrow8.speed = 0.12f;
+	arrow8.loop = true;
+
+	arrow9.PushBack({ 55, 17, 7, 7 });
+	arrow9.PushBack({ 33, 17, 7, 7 });
+	arrow9.PushBack({ 45, 17, 7, 7 });
+	arrow9.speed = 0.12f;
+	arrow9.loop = true;
+
+	
 
 	//Blue sensors--------------------------------------------
 	blueSensor.PushBack({ 20,33,9,9 });
@@ -164,6 +183,13 @@ update_status ModuleSceneIntro::Update()
 		App->renderer->Blit(sensors_texture, 163, 64, &(arrow4.GetCurrentFrame()));
 		App->renderer->Blit(sensors_texture, 176, 73, &(arrow5.GetCurrentFrame()));
 		App->renderer->Blit(sensors_texture, 189, 81, &(arrow6.GetCurrentFrame()));
+
+		App->renderer->Blit(sensors_texture, 38, 219, &(arrow7.GetCurrentFrame()));
+		App->renderer->Blit(sensors_texture, 33, 231, &(arrow8.GetCurrentFrame()));
+		App->renderer->Blit(sensors_texture, 28, 243, &(arrow9.GetCurrentFrame()));
+
+		App->renderer->Blit(sensors_texture, 82, 219, &(arrow6.GetCurrentFrame()));
+		App->renderer->Blit(sensors_texture, 96, 225, &(arrow5.GetCurrentFrame()));
 	}
 
 	if (App->input->GetMouseX() > 365 && App->input->GetMouseY() > 276 && App->input->GetMouseX() < 426 && App->input->GetMouseY() < 361 && App->player->lives == 4)
