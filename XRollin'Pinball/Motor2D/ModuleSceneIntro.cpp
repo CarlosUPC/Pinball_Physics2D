@@ -125,11 +125,7 @@ bool ModuleSceneIntro::Start()
 	Upleft_flipper = App->textures->Load("textures/LeftUpperFlipper.png");
 	Upright_flipper = App->textures->Load("textures/RightUpperFlipper.png");
 
-	innerCircles.add(App->physics->CreateInnerCircle(108, 71, 10.75f));
-	innerCircles.getLast()->data->listener = this;
-	innerCircles.add(App->physics->CreateInnerCircle(142, 69, 10.75f));
-	innerCircles.getLast()->data->listener = this;
-
+	
 	// UI FONTS
 	score_font = App->fonts->Load("textures/Score.png", "0123456789", 1);
 	lifes_font = App->fonts->Load("textures/Lives.png", "0123", 1);
@@ -150,6 +146,12 @@ bool ModuleSceneIntro::Start()
 	top_blue_sensors_fx = App->audio->LoadFx("pinball/top_blue_sensors_fx.wav");
 
 	//-------------------------------Sensors------------------------------//
+	innerCircles.add(App->physics->CreateBounceCircle(108, 71, 10.75f));
+	innerCircles.getLast()->data->listener = this;
+	innerCircles.add(App->physics->CreateBounceCircle(142, 69, 10.75f));
+	innerCircles.getLast()->data->listener = this;
+	
+	bouncerInclined = App->physics->CreateRotateRectangle(66, 143, 35, 3, b2_staticBody, 0.5f);
 
 	BlueSensors[0] = App->physics->CreateRectangleSensor(180, 17, 10, 11);
 	BlueSensors[1] = App->physics->CreateRectangleSensor(162, 199, 10, 10);

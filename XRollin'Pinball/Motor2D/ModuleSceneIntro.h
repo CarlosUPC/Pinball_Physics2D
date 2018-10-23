@@ -34,7 +34,7 @@ public:
 	PhysBody* BlueSensors[7];
 	PhysBody* SmallBlueSensors[8];
 
-	
+	PhysBody* bouncerInclined;
 	PhysBody* FlipperBouncers[2];
 	PhysBody* ShinySensors[4];
 

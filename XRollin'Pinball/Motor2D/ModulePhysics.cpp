@@ -346,7 +346,7 @@ PhysBody* ModulePhysics::CreateCircleSensor(int x, int y, int radius)
 	return pbody;
 }
 
-PhysBody* ModulePhysics::CreateInnerCircle(int x, int y, int radius)
+PhysBody* ModulePhysics::CreateBounceCircle(int x, int y, int radius)
 {
 	b2BodyDef body;
 	body.type = b2_staticBody;
