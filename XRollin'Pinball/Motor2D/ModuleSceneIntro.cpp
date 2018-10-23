@@ -55,6 +55,10 @@ bool ModuleSceneIntro::Start()
 	//Death collider
 	end = App->physics->CreateRectangleSensor(110, 440, 100, 10);
 	
+	// FX
+
+	red_circle_fx = App->audio->LoadFx("pinball/red_circle_collision.wav");
+	red_circle_sensor = App->physics->CreateCircleSensor(150, 80, 15);
 
 	return ret;
 }
@@ -217,11 +221,12 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 
 		if (App->player->lives == 4)
 			game_started = false;
-
-		
 	}
 
-	App->audio->PlayFx(bonus_fx);
+	if(bodyB == red_circle_sensor)
+		App->audio->PlayFx(red_circle_fx);
+
+	//App->audio->PlayFx(bonus_fx);
 }
 
 
