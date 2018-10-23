@@ -72,6 +72,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\XRollin%27Pinball\Motor2D\Animation.h" />
     <ClInclude Include="..\..\XRollin%27Pinball\Motor2D\ModuleFonts.h" />
     <ClInclude Include="Application.h" />
     <ClInclude Include="Globals.h" />

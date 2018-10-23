@@ -3,6 +3,7 @@
 #include "p2List.h"
 #include "p2Point.h"
 #include "Globals.h"
+#include "Animation.h"
 
 class PhysBody;
 
@@ -28,15 +29,50 @@ public:
 	p2List<PhysBody*>* leftFlippers;
 	p2List<PhysBody*>* rightFlippers;
 
+
+	PhysBody* BlueSensors[5];
+	PhysBody* SmallBlueSensors[8];
+	PhysBody* ShinySensors[2];
+
 	SDL_Texture* circle = nullptr;
 	SDL_Texture* box = nullptr;
 	SDL_Texture* rick = nullptr;
 
 	SDL_Texture* map_texture = nullptr;
 	SDL_Texture* ball_texture = nullptr;
+	SDL_Texture* sensors_texture = nullptr;
 	SDL_Texture* startgame_texture = nullptr;
 	SDL_Texture* insertCoin_texture = nullptr;
 	SDL_Texture* dock_texture = nullptr;
+
+	Animation blueSensor;
+	
+	Animation smallBlueSensor;
+	
+	Animation ShinySensor1; //Red Circle Bounce
+	Animation ShinySensor2; //Red Triangular Bounce
+
+
+	
+	bool BlueSensor_1 = false;
+	bool BlueSensor_2 = false;
+	bool BlueSensor_3 = false;
+	bool BlueSensor_4 = false;
+	bool BlueSensor_5 = false;
+
+	bool SmallBlueSensor_1 = false;
+	bool SmallBlueSensor_2 = false;
+	bool SmallBlueSensor_3 = false;
+	bool SmallBlueSensor_4 = false;
+	bool SmallBlueSensor_5 = false;
+	bool SmallBlueSensor_6 = false;
+	bool SmallBlueSensor_7 = false;
+	bool SmallBlueSensor_8 = false;
+
+	bool ShinySensor_1 = false;
+	bool ShinySensor_2 = false;
+	
+
 	
 	bool game_started = false;
 	bool create_ball = false;
