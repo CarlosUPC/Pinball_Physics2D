@@ -143,6 +143,8 @@ bool ModuleSceneIntro::Start()
 
 	car_start_fx = App->audio->LoadFx("pinball/car_start.wav");
 
+	top_blue_sensors_fx = App->audio->LoadFx("pinball/top_blue_sensors_fx.wav");
+
 	//-------------------------------Sensors------------------------------//
 
 	BlueSensors[0] = App->physics->CreateRectangleSensor(180, 17, 10, 11);
@@ -356,7 +358,6 @@ update_status ModuleSceneIntro::Update()
 	}
 
 	
-
 	// Prepare for raycast ------------------------------------------------------
 	
 	iPoint mouse;
@@ -477,27 +478,27 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 	// Blue Sensors----------------------------------------------------------
 	if (bodyB == BlueSensors[0]) {
 		BlueSensor_1 = true;
-		
 		App->player->score += 5;
 	}
 	if (bodyB == BlueSensors[1]) {
 		BlueSensor_2 = true;
-		
+		App->audio->PlayFx(top_blue_sensors_fx);
 		App->player->score += 5;
 	}
 	if (bodyB == BlueSensors[2]) {
 		BlueSensor_3 = true;
-		
+		App->audio->PlayFx(top_blue_sensors_fx);
 		App->player->score += 5;
 	}
 	if (bodyB == BlueSensors[3]) {
 		BlueSensor_4 = true;
-		
+		App->audio->PlayFx(top_blue_sensors_fx);
 		App->player->score += 5;
 	}
 
 	if (bodyB == BlueSensors[4]) {
 		BlueSensor_5 = true;
+		App->audio->PlayFx(top_blue_sensors_fx);
 		App->player->score += 5;
 	}
 

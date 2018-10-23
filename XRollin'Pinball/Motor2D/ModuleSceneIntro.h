@@ -106,6 +106,7 @@ public:
 	uint red_circle_fx;
 	uint blue_circle_fx;
 	uint car_start_fx;
+	uint top_blue_sensors_fx;
 
 	char score_text[10];
 	char lifes_text[10];
