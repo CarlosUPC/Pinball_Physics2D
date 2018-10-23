@@ -73,12 +73,10 @@ bool ModuleSceneIntro::Start()
 	// FX
 
 	red_circle_fx = App->audio->LoadFx("pinball/red_circle_collision.wav");
-	red_circle_sensor1 = App->physics->CreateCircleSensor(108, 71, 11);
-	red_circle_sensor2 = App->physics->CreateCircleSensor(142, 70, 11);
+	
 
 	blue_circle_fx = App->audio->LoadFx("pinball/boing_collision.wav");
-	blue_circle_sensor1 = App->physics->CreateCircleSensor(8.5f, 362, 6.5f);
-	blue_circle_sensor2 = App->physics->CreateCircleSensor(199, 362, 6.5f);
+	
 
 	car_start_fx = App->audio->LoadFx("pinball/car_start.wav");
 
@@ -354,7 +352,7 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 
 		if (App->player->lives == 4)
 			game_started = false;
-<<<<<<< HEAD
+
 	
 	}
 
@@ -395,8 +393,6 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 		SmallBlueSensor_2 = true;
 
 		App->player->score += 5;
-=======
->>>>>>> e0ab3e61b1d97087cd5270ed8dc2096a9cbf1d12
 	}
 	if (bodyB == SmallBlueSensors[2]) {
 		SmallBlueSensor_3 = true;
@@ -442,12 +438,6 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 		App->player->score += 10;
 	}
 
-
-	if(bodyB == red_circle_sensor1 || bodyB == red_circle_sensor2)
-		App->audio->PlayFx(red_circle_fx);
-
-	if (bodyB == blue_circle_sensor1)
-		App->audio->PlayFx(blue_circle_fx);
 
 
 	//App->audio->PlayFx(bonus_fx);
