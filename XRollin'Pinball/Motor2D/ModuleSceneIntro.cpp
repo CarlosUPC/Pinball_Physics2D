@@ -87,10 +87,10 @@ ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Modul
 	ShinySensor1.PushBack({1,31,15,15});
 	ShinySensor1.speed = 0.2f;
 
-	ShinySensor2.PushBack({5, 55, 21, 49});
+	ShinySensor2.PushBack({5, 71, 21, 49});
 	ShinySensor2.speed = 0.2f;
 
-	ShinySensor3.PushBack({ 37, 55, 21, 49 });
+	ShinySensor3.PushBack({ 37, 71, 21, 49 });
 	ShinySensor3.speed = 0.2f;
 
 }

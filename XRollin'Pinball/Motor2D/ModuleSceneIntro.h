@@ -33,12 +33,11 @@ public:
 
 	PhysBody* BlueSensors[7];
 	PhysBody* SmallBlueSensors[8];
-<<<<<<< HEAD
-	PhysBody* ShinySensors[2];
+
+	
 	PhysBody* FlipperBouncers[2];
-=======
 	PhysBody* ShinySensors[4];
->>>>>>> f23420fc2f54cc394690b26285c05110255b8037
+
 
 	SDL_Texture* circle = nullptr;
 	SDL_Texture* box = nullptr;
