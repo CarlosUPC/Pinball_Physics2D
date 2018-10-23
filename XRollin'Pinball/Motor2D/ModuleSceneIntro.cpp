@@ -87,6 +87,12 @@ ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Modul
 	ShinySensor1.PushBack({1,31,15,15});
 	ShinySensor1.speed = 0.2f;
 
+	ShinySensor2.PushBack({5, 55, 21, 49});
+	ShinySensor2.speed = 0.2f;
+
+	ShinySensor3.PushBack({ 37, 55, 21, 49 });
+	ShinySensor3.speed = 0.2f;
+
 }
 
 ModuleSceneIntro::~ModuleSceneIntro()
@@ -141,6 +147,8 @@ bool ModuleSceneIntro::Start()
 
 	car_start_fx = App->audio->LoadFx("pinball/car_start.wav");
 
+	top_blue_sensors_fx = App->audio->LoadFx("pinball/top_blue_sensors_fx.wav");
+
 	//-------------------------------Sensors------------------------------//
 
 	BlueSensors[0] = App->physics->CreateRectangleSensor(180, 17, 10, 11);
@@ -162,6 +170,8 @@ bool ModuleSceneIntro::Start()
 
 	ShinySensors[0] = App->physics->CreateRectangleSensor(106, 71, 20, 20);
 	ShinySensors[1] = App->physics->CreateRectangleSensor(141, 68, 20, 20);
+	ShinySensors[2] = App->physics->CreateRotateRectangle(50, 322, 8, 53, b2_staticBody, -0.5f);
+	ShinySensors[3] = App->physics->CreateRotateRectangle(159, 322, 10, 53, b2_staticBody, 0.5f);
 
 	return ret;
 }
@@ -284,6 +294,7 @@ update_status ModuleSceneIntro::Update()
 		 App->renderer->Blit(sensors_texture, 192, 355, &(flipperSensor.GetCurrentFrame()));
 	}
 
+
 	//-----------------------------Print Small Blue Sensors---------------------------------------//
 
 	if (SmallBlueSensor_1 == true) {
@@ -334,8 +345,24 @@ update_status ModuleSceneIntro::Update()
 			ShinySensor_2 = false;
 		}
 	}
-	
 
+	if (ShinySensor_3 == true) {
+		App->renderer->Blit(sensors_texture, 37, 300, &(ShinySensor2.GetCurrentFrame()));
+		if (ShinySensor2.current_frame == 0) {
+			ShinySensor2.Reset();
+			ShinySensor_3 = false;
+		}
+	}
+
+	if (ShinySensor_4 == true) {
+		App->renderer->Blit(sensors_texture, 150, 300, &(ShinySensor3.GetCurrentFrame()));
+		if (ShinySensor3.current_frame == 0) {
+			ShinySensor3.Reset();
+			ShinySensor_4 = false;
+		}
+	}
+
+	
 	// Prepare for raycast ------------------------------------------------------
 	
 	iPoint mouse;
@@ -466,27 +493,27 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 	// Blue Sensors----------------------------------------------------------
 	if (bodyB == BlueSensors[0]) {
 		BlueSensor_1 = true;
-		
 		App->player->score += 5;
 	}
 	if (bodyB == BlueSensors[1]) {
 		BlueSensor_2 = true;
-		
+		App->audio->PlayFx(top_blue_sensors_fx);
 		App->player->score += 5;
 	}
 	if (bodyB == BlueSensors[2]) {
 		BlueSensor_3 = true;
-		
+		App->audio->PlayFx(top_blue_sensors_fx);
 		App->player->score += 5;
 	}
 	if (bodyB == BlueSensors[3]) {
 		BlueSensor_4 = true;
-		
+		App->audio->PlayFx(top_blue_sensors_fx);
 		App->player->score += 5;
 	}
 
 	if (bodyB == BlueSensors[4]) {
 		BlueSensor_5 = true;
+		App->audio->PlayFx(top_blue_sensors_fx);
 		App->player->score += 5;
 	}
 
@@ -558,6 +585,17 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 		App->player->score += 10;
 	}
 
+	if (bodyB == ShinySensors[2]) {
+		ShinySensor_3 = true;
+		App->audio->PlayFx(red_circle_fx);
+		App->player->score += 10;
+	}
+
+	if (bodyB == ShinySensors[3]) {
+		ShinySensor_4 = true;
+		App->audio->PlayFx(red_circle_fx);
+		App->player->score += 10;
+	}
 
 
 	//App->audio->PlayFx(bonus_fx);

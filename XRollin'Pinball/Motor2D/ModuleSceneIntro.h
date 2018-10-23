@@ -33,8 +33,12 @@ public:
 
 	PhysBody* BlueSensors[7];
 	PhysBody* SmallBlueSensors[8];
+<<<<<<< HEAD
 	PhysBody* ShinySensors[2];
 	PhysBody* FlipperBouncers[2];
+=======
+	PhysBody* ShinySensors[4];
+>>>>>>> f23420fc2f54cc394690b26285c05110255b8037
 
 	SDL_Texture* circle = nullptr;
 	SDL_Texture* box = nullptr;
@@ -69,8 +73,8 @@ public:
 	Animation smallBlueSensor;
 	
 	Animation ShinySensor1; //Red Circle Bounce
-	Animation ShinySensor2; //Red Triangular Bounce
-
+	Animation ShinySensor2; //Red Left Triangular Bounce
+	Animation ShinySensor3; //Red Right Triangular Bounce
 
 	
 	bool BlueSensor_1 = false;
@@ -92,7 +96,8 @@ public:
 
 	bool ShinySensor_1 = false;
 	bool ShinySensor_2 = false;
-	
+	bool ShinySensor_3 = false;
+	bool ShinySensor_4 = false;
 
 	
 	bool game_started = false;
@@ -109,6 +114,7 @@ public:
 	uint red_circle_fx;
 	uint blue_circle_fx;
 	uint car_start_fx;
+	uint top_blue_sensors_fx;
 
 	char score_text[10];
 	char lifes_text[10];

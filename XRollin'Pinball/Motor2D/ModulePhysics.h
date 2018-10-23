@@ -50,6 +50,7 @@ public:
 	PhysBody* CreateChain(int x, int y, int* points, int size);
 	PhysBody* CreatePolygon(int x, int y, int* points, int size, float dens, int rest, int filterIndex, b2BodyType type);
 	PhysBody* CreateInnerCircle(int x, int y, int radius);
+	PhysBody* CreateRotateRectangle(int x, int y, int width, int height, b2BodyType type, float angle);
 	b2PrismaticJoint* CreateDock();
 
 	// Create Flippers
