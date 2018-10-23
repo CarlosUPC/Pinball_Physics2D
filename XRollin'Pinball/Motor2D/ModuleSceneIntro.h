@@ -50,6 +50,7 @@ public:
 	uint bonus_fx;
 	uint red_circle_fx;
 	uint blue_circle_fx;
+	uint car_start_fx;
 
 	char score_text[10];
 	char lifes_text[10];

@@ -58,12 +58,14 @@ bool ModuleSceneIntro::Start()
 	// FX
 
 	red_circle_fx = App->audio->LoadFx("pinball/red_circle_collision.wav");
-	red_circle_sensor1 = App->physics->CreateCircleSensor(108, 71, 10.8f);
-	red_circle_sensor2 = App->physics->CreateCircleSensor(142, 70, 10.8f);
+	red_circle_sensor1 = App->physics->CreateCircleSensor(108, 71, 11);
+	red_circle_sensor2 = App->physics->CreateCircleSensor(142, 70, 11);
 
 	blue_circle_fx = App->audio->LoadFx("pinball/boing_collision.wav");
 	blue_circle_sensor1 = App->physics->CreateCircleSensor(8.5f, 362, 6.5f);
 	blue_circle_sensor2 = App->physics->CreateCircleSensor(199, 362, 6.5f);
+
+	car_start_fx = App->audio->LoadFx("pinball/car_start.wav");
 
 	return ret;
 }
@@ -92,6 +94,7 @@ update_status ModuleSceneIntro::Update()
 			game_started = true;
 			create_ball = true;
 			App->player->lives = 1;
+			App->audio->PlayFx(car_start_fx);
 		}
 	}
 
