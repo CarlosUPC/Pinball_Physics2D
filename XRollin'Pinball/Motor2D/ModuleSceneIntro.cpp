@@ -153,8 +153,11 @@ bool ModuleSceneIntro::Start()
 	bounceCircles.getLast()->data->listener = this;
 	
 	bouncerInclined = App->physics->CreateRotateRectangle(66, 143, 35, 3, b2_staticBody, 0.5f);
-	ExitSensor = App->physics->CreateRotateRectangle(230, 174, 35, 3, b2_staticBody, -1.f);
-	ExitSensor->body->GetFixtureList()->SetSensor(true);
+
+	StartSensor = App->physics->CreateRotateRectangle(230, 174, 35, 3, b2_staticBody, -1.f);
+	StartSensor->body->SetActive(false);
+	
+
 
 	ExitSensorChecker = App->physics->CreateRectangleSensor(230, 150, 25, 3);
 
@@ -375,9 +378,12 @@ update_status ModuleSceneIntro::Update()
 		}
 	}
 
-	if (Exit_SensorChecker == true) {
-		//ExitSensor->body->GetFixtureList()->SetSensor(false);
-		Exit_SensorChecker == false;
+	if (open == true && died == true) {
+	
+		open = false;
+		died = false;
+		StartSensor->body->SetActive(true);
+		StartSensor->body->GetFixtureList()->SetRestitution(0);
 	}
 
 	
@@ -628,8 +634,8 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 		App->player->score += 10;
 	}
 
-	if (bodyB == ExitSensorChecker) {
-		Exit_SensorChecker = true;
+	if (bodyB == ExitSensorChecker && died) {
+		open = true;
 	}
 
 	//App->audio->PlayFx(bonus_fx);
@@ -644,6 +650,8 @@ void ModuleSceneIntro::Destroy() {
 
 
 	}
+	//died = true;
+	//ExitSensor->body->SetActive(false);
 	
 }
 
@@ -668,7 +676,9 @@ void ModuleSceneIntro::PlayerBall() {
 	FlipperBouncers[1] = App->physics->CreateRectangle(9, 360, 8, 12, b2_staticBody);
 	FlipperBouncers[1]->body->GetFixtureList()->SetRestitution(2.0f);
 
-	ExitSensor->body->GetFixtureList()->SetSensor(true);
+	
 	create_ball = false;
+	StartSensor->body->SetActive(false);
+	died = true;
 }
 

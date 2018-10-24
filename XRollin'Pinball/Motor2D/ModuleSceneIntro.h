@@ -30,7 +30,7 @@ public:
 	p2List<PhysBody*>* leftFlippers;
 	p2List<PhysBody*>* rightFlippers;
 
-	PhysBody* ExitSensor;
+	PhysBody* StartSensor;
 	PhysBody* ExitSensorChecker;
 	PhysBody* BlueSensors[7];
 	PhysBody* SmallBlueSensors[8];
@@ -104,6 +104,9 @@ public:
 	
 	bool game_started = false;
 	bool create_ball = false;
+
+	bool open = false;
+	bool died = false;
 	
 	SDL_Texture* Upleft_flipper = nullptr;
 	SDL_Texture* Upright_flipper = nullptr;

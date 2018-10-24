@@ -897,7 +897,8 @@ PhysBody* ModulePhysics::CreateRotateRectangle(int x, int y, int width, int heig
 	fixture.shape = &box;
 	fixture.density = 25.0f;
 	fixture.restitution = 1.5f;
-	//fixture.isSensor = false;
+	fixture.isSensor = false;
+	
 
 	b->CreateFixture(&fixture);
 
