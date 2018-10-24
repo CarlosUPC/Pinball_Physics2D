@@ -197,14 +197,16 @@ bool ModuleSceneIntro::CleanUp()
 // Update: draw background
 update_status ModuleSceneIntro::Update()
 {
+
+	iPoint mouse;
+	mouse.x = App->input->GetMouseX();
+	mouse.y = App->input->GetMouseY();
+
 	App->renderer->Blit(map_texture, 0, 0);
 
 	if (App->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN)
-	{
-		int i, j;
-		SDL_GetMouseState(&i, &j);
-		circles.getLast()->data->body->SetTransform({ PIXEL_TO_METERS((float)i),  PIXEL_TO_METERS((float)j) }, 0.0f);
-	}
+		circles.getLast()->data->body->SetTransform({ PIXEL_TO_METERS(mouse.x),  PIXEL_TO_METERS(mouse.y) }, 0.0f);
+
 
 	
 	if (game_started) {
@@ -381,9 +383,7 @@ update_status ModuleSceneIntro::Update()
 	
 	// Prepare for raycast ------------------------------------------------------
 	
-	iPoint mouse;
-	mouse.x = App->input->GetMouseX();
-	mouse.y = App->input->GetMouseY();
+
 
 	// All draw functions ------------------------------------------------------
 	p2List_item<PhysBody*>* c = circles.getFirst();
