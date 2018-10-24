@@ -164,8 +164,8 @@ bool ModuleSceneIntro::Start()
 	BlueSensors[2] = App->physics->CreateRectangleSensor(113, 30, 10, 10);
 	BlueSensors[3] = App->physics->CreateRectangleSensor(131, 28, 10, 10);
 	BlueSensors[4] = App->physics->CreateRectangleSensor(149, 28, 10, 10);
-	BlueSensors[5] = App->physics->CreateRectangleSensor(9, 360, 10, 10);
-	BlueSensors[6] = App->physics->CreateRectangleSensor(198, 360, 10, 10);
+	BlueSensors[5] = App->physics->CreateRectangleSensor(9, 355, 10, 10);
+	BlueSensors[6] = App->physics->CreateRectangleSensor(198, 355, 10, 10);
 
 	SmallBlueSensors[0] = App->physics->CreateRectangleSensor(175, 59, 5, 5);
 	SmallBlueSensors[1] = App->physics->CreateRectangleSensor(187, 67, 5, 5);
@@ -652,6 +652,9 @@ void ModuleSceneIntro::PlayerBall() {
 			App->physics->world->DestroyBody(FlipperBouncers[i]->body);
 		}
 	}
+
+	BlueSensor_6 = false;
+	BlueSensor_7 = false;
 	
 	circles.add(App->physics->CreateCircle(234, 350, 6.5f));
 	circles.getLast()->data->listener = this;
