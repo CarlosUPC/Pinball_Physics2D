@@ -423,7 +423,7 @@ update_status ModuleSceneIntro::Update()
 
 		//Print Lower Flipper
 		if (c == leftFlippers->getFirst())
-		App->renderer->Blit(left_flipper, x - 5, y - 7, NULL, 1.0f, c->data->GetRotation() - 30);
+		App->renderer->Blit(left_flipper, x + 3 , y - 6 , NULL, 1.0f, c->data->GetRotation() - 30);
 
 		//Print Upper Flipper
 		if (c == leftFlippers->getLast())
@@ -441,7 +441,7 @@ update_status ModuleSceneIntro::Update()
 
 		//Print Lower Flipper
 		if(c == rightFlippers->getFirst())
-		App->renderer->Blit(right_flipper, x + 3, y - 7, NULL, 1.0f, c->data->GetRotation() - 330);
+		App->renderer->Blit(right_flipper, x , y - 6, NULL, 1.0f, c->data->GetRotation() - 330);
 
 		//Print Upper Flipper
 		if (c == rightFlippers->getLast())

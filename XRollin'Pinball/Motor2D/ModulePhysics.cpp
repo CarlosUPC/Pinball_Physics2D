@@ -308,6 +308,7 @@ PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius)
 	fixture.shape = &shape;
 	fixture.density = 5.0f;
 	fixture.restitution = 0.01f;
+	fixture.friction = 0.3f;
 	
 
 	b->CreateFixture(&fixture);
@@ -360,7 +361,7 @@ PhysBody* ModulePhysics::CreateBounceCircle(int x, int y, int radius)
 	b2FixtureDef fixture;
 	fixture.shape = &shape;
 	fixture.density = 1.0f;
-	fixture.restitution = 1.5f;
+	fixture.restitution = 0.8f;
 
 	b->CreateFixture(&fixture);
 
@@ -501,11 +502,13 @@ PhysBody* ModulePhysics::CreatePolygon(int x, int y, int* points, int size, floa
 void ModulePhysics::BuildLeftFlippers(p2List<PhysBody*>* leftFlippers)
 {
 	//Flipper Lower
-	PhysBody* flipper = CreateRectangle(111, 382, 30, 7, b2_dynamicBody); 
-	PhysBody* gear = CreateRectangle(68, 382, 1, 1, b2_staticBody); 
+	PhysBody* flipper = CreateRectangle(107, 378, 35, 6, b2_dynamicBody); 
+	flipper->body->GetFixtureList()->SetRestitution(0.3f);
+	PhysBody* gear = CreateRectangle(64, 378, 1, 1, b2_staticBody); 
 
 	//Flipper Upper
 	PhysBody* flipper2 = CreateRectangle(120, 180, 25, 7, b2_dynamicBody);
+	flipper2->body->GetFixtureList()->SetRestitution(0.3f);
 	PhysBody* gear2 = CreateRectangle(130, 180, 1, 1, b2_staticBody);
 
 	//Revolute Joint Flipper Lower
@@ -543,11 +546,13 @@ void ModulePhysics::BuildLeftFlippers(p2List<PhysBody*>* leftFlippers)
 void ModulePhysics::BuildRightFlippers(p2List<PhysBody*>* rightFlippers)
 {
 	//Flipper Lower
-	PhysBody* flipper = CreateRectangle(160, 382, 30, 7, b2_dynamicBody);
-	PhysBody* gear = CreateRectangle(140, 382, 1, 1, b2_staticBody);
+	PhysBody* flipper = CreateRectangle(142, 379, 35, 6, b2_dynamicBody);
+	flipper->body->GetFixtureList()->SetRestitution(0.3f);
+	PhysBody* gear = CreateRectangle(142, 379, 1, 1, b2_staticBody);
 
 	//Flipper Upper
 	PhysBody* flipper2 = CreateRectangle(181, 166, 25, 7, b2_dynamicBody);
+	flipper2->body->GetFixtureList()->SetRestitution(0.3f);
 	PhysBody* gear2 = CreateRectangle(191, 166, 1, 1, b2_staticBody);
 
 	//Revolute Joint Flipper Lower
