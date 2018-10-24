@@ -198,13 +198,15 @@ bool ModuleSceneIntro::CleanUp()
 update_status ModuleSceneIntro::Update()
 {
 	App->renderer->Blit(map_texture, 0, 0);
-	
-	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+
+	if (App->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN)
 	{
-		circles.add(App->physics->CreateCircle(App->input->GetMouseX(), App->input->GetMouseY(), 3));
-		circles.getLast()->data->listener = this;
+		int i, j;
+		SDL_GetMouseState(&i, &j);
+		circles.getLast()->data->body->SetTransform({ PIXEL_TO_METERS((float)i),  PIXEL_TO_METERS((float)j) }, 0.0f);
 	}
 
+	
 	if (game_started) {
 		App->renderer->Blit(sensors_texture, 109, 8, &(arrow1.GetCurrentFrame()));
 		App->renderer->Blit(sensors_texture, 126, 8, &(arrow2.GetCurrentFrame()));

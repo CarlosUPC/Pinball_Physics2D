@@ -307,7 +307,7 @@ PhysBody* ModulePhysics::CreateCircle(int x, int y, int radius)
 	b2FixtureDef fixture;
 	fixture.shape = &shape;
 	fixture.density = 5.0f;
-	fixture.restitution = 0.01f;
+	fixture.restitution = 0.05f;
 	fixture.friction = 0.3f;
 	
 
@@ -731,7 +731,7 @@ update_status ModulePhysics::PostUpdate()
 		// Mouse joint
 		b2MouseJointDef mouse_def;
 
-		mouse_def.bodyA = ground;
+		mouse_def.bodyA = big_ball;
 		mouse_def.bodyB = body_clicked;
 		mouse_def.target = mouse_position;
 		mouse_def.dampingRatio = 0.5f;
@@ -766,13 +766,13 @@ update_status ModulePhysics::PostUpdate()
 
 	// Draw distance joint
 
-	if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT && distance_joint != nullptr) {
+	/*if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT && distance_joint != nullptr) {
 
 		b2Vec2 anchorA = distance_joint->GetBodyA()->GetPosition();
 		b2Vec2 anchorB = distance_joint->GetBodyB()->GetPosition();
 
 		App->renderer->DrawLine(METERS_TO_PIXELS(anchorA.x), METERS_TO_PIXELS(anchorA.y), METERS_TO_PIXELS(anchorB.x), METERS_TO_PIXELS(anchorB.y), 255, 0, 0);
-	}
+	}*/
 
 	// TODO 4: If the player releases the mouse button, destroy the joint
 	if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_UP) {
@@ -784,10 +784,10 @@ update_status ModulePhysics::PostUpdate()
 
 		// Uncomment if you want to maintain the distance joint
 		
-		if (distance_joint != nullptr) {
+		/*if (distance_joint != nullptr) {
 			world->DestroyJoint(distance_joint);
 			distance_joint = nullptr;
-		}
+		}*/
 		
 
 		
