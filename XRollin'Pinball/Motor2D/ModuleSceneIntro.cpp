@@ -145,14 +145,19 @@ bool ModuleSceneIntro::Start()
 
 	top_blue_sensors_fx = App->audio->LoadFx("pinball/top_blue_sensors_fx.wav");
 
-	//-------------------------------Sensors------------------------------//
-	innerCircles.add(App->physics->CreateBounceCircle(108, 71, 10.75f));
-	innerCircles.getLast()->data->listener = this;
-	innerCircles.add(App->physics->CreateBounceCircle(142, 69, 10.75f));
-	innerCircles.getLast()->data->listener = this;
+	//-------------------------------Bouncers------------------------------//
+	bounceCircles.add(App->physics->CreateBounceCircle(108, 71, 10.75f));
+	bounceCircles.getLast()->data->listener = this;
+	bounceCircles.add(App->physics->CreateBounceCircle(142, 69, 10.75f));
+	bounceCircles.getLast()->data->listener = this;
 	
 	bouncerInclined = App->physics->CreateRotateRectangle(66, 143, 35, 3, b2_staticBody, 0.5f);
+	ExitSensor = App->physics->CreateRotateRectangle(230, 174, 35, 3, b2_staticBody, -1.f);
+	ExitSensor->body->GetFixtureList()->SetSensor(true);
 
+	ExitSensorChecker = App->physics->CreateRectangleSensor(230, 150, 25, 3);
+
+	//-------------------------------Sensors------------------------------//
 	BlueSensors[0] = App->physics->CreateRectangleSensor(180, 17, 10, 11);
 	BlueSensors[1] = App->physics->CreateRectangleSensor(162, 199, 10, 10);
 	BlueSensors[2] = App->physics->CreateRectangleSensor(113, 30, 10, 10);
@@ -362,6 +367,11 @@ update_status ModuleSceneIntro::Update()
 			ShinySensor3.Reset();
 			ShinySensor_4 = false;
 		}
+	}
+
+	if (Exit_SensorChecker == true) {
+		ExitSensor->body->GetFixtureList()->SetSensor(false);
+		Exit_SensorChecker == false;
 	}
 
 	
@@ -599,6 +609,9 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 		App->player->score += 10;
 	}
 
+	if (bodyB == ExitSensorChecker) {
+		Exit_SensorChecker = true;
+	}
 
 	//App->audio->PlayFx(bonus_fx);
 }
@@ -609,7 +622,10 @@ void ModuleSceneIntro::Destroy() {
 	if (toDestroy != nullptr) {
 		App->physics->world->DestroyBody(toDestroy->body);
 		toDestroy = nullptr;
+
+
 	}
+	
 }
 
 void ModuleSceneIntro::PlayerBall() {
@@ -630,6 +646,7 @@ void ModuleSceneIntro::PlayerBall() {
 	FlipperBouncers[1] = App->physics->CreateRectangle(9, 360, 8, 12, b2_staticBody);
 	FlipperBouncers[1]->body->GetFixtureList()->SetRestitution(2.0f);
 
+	ExitSensor->body->GetFixtureList()->SetSensor(true);
 	create_ball = false;
 }
 

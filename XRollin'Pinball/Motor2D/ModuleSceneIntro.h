@@ -25,12 +25,13 @@ public:
 	p2List<PhysBody*> circles;
 	p2List<PhysBody*> boxes;
 	p2List<PhysBody*> ricks;
-	p2List<PhysBody*> innerCircles;
+	p2List<PhysBody*> bounceCircles;
 
 	p2List<PhysBody*>* leftFlippers;
 	p2List<PhysBody*>* rightFlippers;
 
-
+	PhysBody* ExitSensor;
+	PhysBody* ExitSensorChecker;
 	PhysBody* BlueSensors[7];
 	PhysBody* SmallBlueSensors[8];
 
@@ -75,7 +76,9 @@ public:
 	Animation ShinySensor2; //Red Left Triangular Bounce
 	Animation ShinySensor3; //Red Right Triangular Bounce
 
-	
+	bool Exit_Sensor = false;
+	bool Exit_SensorChecker = false;
+
 	bool BlueSensor_1 = false;
 	bool BlueSensor_2 = false;
 	bool BlueSensor_3 = false;
