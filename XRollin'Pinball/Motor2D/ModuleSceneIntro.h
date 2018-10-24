@@ -33,6 +33,7 @@ public:
 	PhysBody* StartSensor;
 	PhysBody* ExitSensorChecker;
 	PhysBody* BlueSensors[7];
+	PhysBody* MediumBlueSensors[15];
 	PhysBody* SmallBlueSensors[8];
 
 	PhysBody* bouncerInclined;
@@ -70,6 +71,7 @@ public:
 
 	Animation blueSensor;
 	Animation flipperSensor;
+	Animation mediumBlueSensor; // blue sensors path
 	Animation smallBlueSensor;
 	
 	Animation ShinySensor1; //Red Circle Bounce
@@ -86,6 +88,22 @@ public:
 	bool BlueSensor_5 = false;
 	bool BlueSensor_6 = false;
 	bool BlueSensor_7 = false;
+
+	bool MediumBlueSensor_1 = false;
+	bool MediumBlueSensor_2 = false;
+	bool MediumBlueSensor_3 = false;
+	bool MediumBlueSensor_4 = false;
+	bool MediumBlueSensor_5 = false;
+	bool MediumBlueSensor_6 = false;
+	bool MediumBlueSensor_7 = false;
+	bool MediumBlueSensor_8 = false;
+	bool MediumBlueSensor_9 = false;
+	bool MediumBlueSensor_10 = false;
+	bool MediumBlueSensor_11 = false;
+	bool MediumBlueSensor_12 = false;
+	bool MediumBlueSensor_13 = false;
+	bool MediumBlueSensor_14 = false;
+	bool MediumBlueSensor_15 = false;
 
 	bool SmallBlueSensor_1 = false;
 	bool SmallBlueSensor_2 = false;

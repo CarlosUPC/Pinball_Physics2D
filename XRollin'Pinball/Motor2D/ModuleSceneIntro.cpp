@@ -82,6 +82,9 @@ ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Modul
 	smallBlueSensor.PushBack({ 32,35,5,5 });
 	smallBlueSensor.speed = 0.01f;
 
+	//Medium blue sensors---------------------------------------
+	mediumBlueSensor.PushBack({4, 57, 8, 7});
+	mediumBlueSensor.speed = 0.01f;
 	
 	//Shiny Sensors--------------------------------------------
 	ShinySensor1.PushBack({1,31,15,15});
@@ -157,8 +160,6 @@ bool ModuleSceneIntro::Start()
 	StartSensor = App->physics->CreateRotateRectangle(230, 174, 35, 3, b2_staticBody, -1.f);
 	StartSensor->body->SetActive(false);
 	
-
-
 	ExitSensorChecker = App->physics->CreateRectangleSensor(230, 150, 25, 3);
 
 	//-------------------------------Sensors------------------------------//
@@ -169,6 +170,22 @@ bool ModuleSceneIntro::Start()
 	BlueSensors[4] = App->physics->CreateRectangleSensor(149, 28, 10, 10);
 	BlueSensors[5] = App->physics->CreateRectangleSensor(9, 355, 10, 10);
 	BlueSensors[6] = App->physics->CreateRectangleSensor(198, 355, 10, 10);
+
+	MediumBlueSensors[0] = App->physics->CreateRectangleSensor(33, 104, 7, 7);
+	MediumBlueSensors[1] = App->physics->CreateRectangleSensor(29, 88, 7, 7);
+	MediumBlueSensors[2] = App->physics->CreateRectangleSensor(28, 73, 7, 7);
+	MediumBlueSensors[3] = App->physics->CreateRectangleSensor(27, 58, 7, 7);
+	MediumBlueSensors[4] = App->physics->CreateRectangleSensor(27, 44, 7, 7);
+	MediumBlueSensors[5] = App->physics->CreateRectangleSensor(27, 29, 7, 7);
+	MediumBlueSensors[6] = App->physics->CreateRectangleSensor(10, 29, 7, 7);
+	MediumBlueSensors[7] = App->physics->CreateRectangleSensor(9, 44, 7, 7);
+	MediumBlueSensors[8] = App->physics->CreateRectangleSensor(9, 59, 7, 7);
+	MediumBlueSensors[9] = App->physics->CreateRectangleSensor(10, 75, 7, 7);
+	MediumBlueSensors[10] = App->physics->CreateRectangleSensor(11, 91, 7, 7);
+	MediumBlueSensors[11] = App->physics->CreateRectangleSensor(14, 107, 7, 7);
+	MediumBlueSensors[12] = App->physics->CreateRectangleSensor(17, 122, 7, 7);
+	MediumBlueSensors[13] = App->physics->CreateRectangleSensor(22, 139, 7, 7);
+	MediumBlueSensors[14] = App->physics->CreateRectangleSensor(28, 156, 7, 7);
 
 	SmallBlueSensors[0] = App->physics->CreateRectangleSensor(175, 59, 5, 5);
 	SmallBlueSensors[1] = App->physics->CreateRectangleSensor(187, 67, 5, 5);
@@ -290,7 +307,7 @@ update_status ModuleSceneIntro::Update()
 		
 	}
 
-	//-----------------------------Print Flipper blue sensors---------------------------------//
+	//-----------------------------Print Flipper Blue Sensors---------------------------------//
 	if (BlueSensor_6 == true) {
 
 		 App->renderer->Blit(sensors_texture, 1, 355, &(flipperSensor.GetCurrentFrame()));
@@ -299,6 +316,128 @@ update_status ModuleSceneIntro::Update()
 	if (BlueSensor_7 == true) {
 
 		 App->renderer->Blit(sensors_texture, 192, 355, &(flipperSensor.GetCurrentFrame()));
+	}
+
+	//-----------------------------Print Medium Blue Sensors---------------------------------//
+
+	if (MediumBlueSensor_1 == true) {
+		App->renderer->Blit(sensors_texture, 29, 99, &(mediumBlueSensor.GetCurrentFrame()));
+		if (mediumBlueSensor.current_frame == 0) {
+			mediumBlueSensor.Reset();
+			MediumBlueSensor_1 = false;
+		}
+	}
+
+	if (MediumBlueSensor_2 == true) {
+		App->renderer->Blit(sensors_texture, 25, 83, &(mediumBlueSensor.GetCurrentFrame()));
+		if (mediumBlueSensor.current_frame == 0) {
+			mediumBlueSensor.Reset();
+			MediumBlueSensor_2 = false;
+		}
+	}
+
+	if (MediumBlueSensor_3 == true) {
+		App->renderer->Blit(sensors_texture, 24, 69, &(mediumBlueSensor.GetCurrentFrame()));
+		if (mediumBlueSensor.current_frame == 0) {
+			mediumBlueSensor.Reset();
+			MediumBlueSensor_3 = false;
+		}
+	}
+
+	if (MediumBlueSensor_4 == true) {
+		App->renderer->Blit(sensors_texture, 23, 54, &(mediumBlueSensor.GetCurrentFrame()));
+		if (mediumBlueSensor.current_frame == 0) {
+			mediumBlueSensor.Reset();
+			MediumBlueSensor_4 = false;
+		}
+	}
+
+	if (MediumBlueSensor_5 == true) {
+		App->renderer->Blit(sensors_texture, 23, 40, &(mediumBlueSensor.GetCurrentFrame()));
+		if (mediumBlueSensor.current_frame == 0) {
+			mediumBlueSensor.Reset();
+			MediumBlueSensor_5 = false;
+		}
+	}
+
+	if (MediumBlueSensor_6 == true) {
+		App->renderer->Blit(sensors_texture, 23, 25, &(mediumBlueSensor.GetCurrentFrame()));
+		if (mediumBlueSensor.current_frame == 0) {
+			mediumBlueSensor.Reset();
+			MediumBlueSensor_6 = false;
+		}
+	}
+
+	if (MediumBlueSensor_7 == true) {
+		App->renderer->Blit(sensors_texture, 6, 25, &(mediumBlueSensor.GetCurrentFrame()));
+		if (mediumBlueSensor.current_frame == 0) {
+			mediumBlueSensor.Reset();
+			MediumBlueSensor_7 = false;
+		}
+	}
+
+	if (MediumBlueSensor_8 == true) {
+		App->renderer->Blit(sensors_texture, 5, 40, &(mediumBlueSensor.GetCurrentFrame()));
+		if (mediumBlueSensor.current_frame == 0) {
+			mediumBlueSensor.Reset();
+			MediumBlueSensor_8 = false;
+		}
+	}
+
+	if (MediumBlueSensor_9 == true) {
+		App->renderer->Blit(sensors_texture, 5, 55, &(mediumBlueSensor.GetCurrentFrame()));
+		if (mediumBlueSensor.current_frame == 0) {
+			mediumBlueSensor.Reset();
+			MediumBlueSensor_9 = false;
+		}
+	}
+
+	if (MediumBlueSensor_10 == true) {
+		App->renderer->Blit(sensors_texture, 6, 71, &(mediumBlueSensor.GetCurrentFrame()));
+		if (mediumBlueSensor.current_frame == 0) {
+			mediumBlueSensor.Reset();
+			MediumBlueSensor_10 = false;
+		}
+	}
+
+	if (MediumBlueSensor_11 == true) {
+		App->renderer->Blit(sensors_texture, 7, 87, &(mediumBlueSensor.GetCurrentFrame()));
+		if (mediumBlueSensor.current_frame == 0) {
+			mediumBlueSensor.Reset();
+			MediumBlueSensor_11 = false;
+		}
+	}
+
+	if (MediumBlueSensor_12 == true) {
+		App->renderer->Blit(sensors_texture, 10, 103, &(mediumBlueSensor.GetCurrentFrame()));
+		if (mediumBlueSensor.current_frame == 0) {
+			mediumBlueSensor.Reset();
+			MediumBlueSensor_12 = false;
+		}
+	}
+
+	if (MediumBlueSensor_13 == true) {
+		App->renderer->Blit(sensors_texture, 13, 118, &(mediumBlueSensor.GetCurrentFrame()));
+		if (mediumBlueSensor.current_frame == 0) {
+			mediumBlueSensor.Reset();
+			MediumBlueSensor_13 = false;
+		}
+	}
+
+	if (MediumBlueSensor_14 == true) {
+		App->renderer->Blit(sensors_texture, 18, 135, &(mediumBlueSensor.GetCurrentFrame()));
+		if (mediumBlueSensor.current_frame == 0) {
+			mediumBlueSensor.Reset();
+			MediumBlueSensor_14 = false;
+		}
+	}
+
+	if (MediumBlueSensor_15 == true) {
+		App->renderer->Blit(sensors_texture, 24, 152, &(mediumBlueSensor.GetCurrentFrame()));
+		if (mediumBlueSensor.current_frame == 0) {
+			mediumBlueSensor.Reset();
+			MediumBlueSensor_15 = false;
+		}
 	}
 
 
@@ -478,10 +617,7 @@ update_status ModuleSceneIntro::Update()
 	sprintf_s(lives, "%d", App->player->lives);
 
 
-	if (App->player->lives == 0) {
-		
-
-	}
+	
 
 	strcat_s(Title, score);
 	strcat_s(Title, Num_lives);
@@ -555,6 +691,98 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 		BlueSensor_7 = true;
 		App->player->score += 5;
 		App->audio->PlayFx(blue_circle_fx);
+	}
+
+	// Medium Blue Sensors-------------------------------------------------------
+
+	if (bodyB == MediumBlueSensors[0]) {
+		MediumBlueSensor_1 = true;
+		App->player->score += 5;
+		App->audio->PlayFx(top_blue_sensors_fx);
+	}
+
+	if (bodyB == MediumBlueSensors[1]) {
+		MediumBlueSensor_2 = true;
+		App->player->score += 5;
+		App->audio->PlayFx(top_blue_sensors_fx);
+	}
+
+	if (bodyB == MediumBlueSensors[2]) {
+		MediumBlueSensor_3 = true;
+		App->player->score += 5;
+		App->audio->PlayFx(top_blue_sensors_fx);
+	}
+
+	if (bodyB == MediumBlueSensors[3]) {
+		MediumBlueSensor_4 = true;
+		App->player->score += 5;
+		App->audio->PlayFx(top_blue_sensors_fx);
+	}
+
+	if (bodyB == MediumBlueSensors[4]) {
+		MediumBlueSensor_5 = true;
+		App->player->score += 5;
+		App->audio->PlayFx(top_blue_sensors_fx);
+	}
+
+	if (bodyB == MediumBlueSensors[5]) {
+		MediumBlueSensor_6 = true;
+		App->player->score += 5;
+		App->audio->PlayFx(top_blue_sensors_fx);
+	}
+
+	if (bodyB == MediumBlueSensors[6]) {
+		MediumBlueSensor_7 = true;
+		App->player->score += 5;
+		App->audio->PlayFx(top_blue_sensors_fx);
+	}
+
+	if (bodyB == MediumBlueSensors[7]) {
+		MediumBlueSensor_8 = true;
+		App->player->score += 5;
+		App->audio->PlayFx(top_blue_sensors_fx);
+	}
+
+	if (bodyB == MediumBlueSensors[8]) {
+		MediumBlueSensor_9 = true;
+		App->player->score += 5;
+		App->audio->PlayFx(top_blue_sensors_fx);
+	}
+
+	if (bodyB == MediumBlueSensors[9]) {
+		MediumBlueSensor_10 = true;
+		App->player->score += 5;
+		App->audio->PlayFx(top_blue_sensors_fx);
+	}
+
+	if (bodyB == MediumBlueSensors[10]) {
+		MediumBlueSensor_11 = true;
+		App->player->score += 5;
+		App->audio->PlayFx(top_blue_sensors_fx);
+	}
+
+	if (bodyB == MediumBlueSensors[11]) {
+		MediumBlueSensor_12 = true;
+		App->player->score += 5;
+		App->audio->PlayFx(top_blue_sensors_fx);
+	}
+
+	if (bodyB == MediumBlueSensors[12]) {
+		MediumBlueSensor_13 = true;
+		App->player->score += 5;
+		App->audio->PlayFx(top_blue_sensors_fx);
+	}
+
+	if (bodyB == MediumBlueSensors[13]) {
+		MediumBlueSensor_14 = true;
+		App->player->score += 5;
+		App->audio->PlayFx(top_blue_sensors_fx);
+	}
+
+	if (bodyB == MediumBlueSensors[14]) {
+		MediumBlueSensor_15 = true;
+		App->player->score += 5;
+		App->audio->PlayFx(top_blue_sensors_fx);
 	}
 
 
