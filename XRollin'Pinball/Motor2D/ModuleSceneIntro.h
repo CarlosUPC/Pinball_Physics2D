@@ -119,6 +119,7 @@ public:
 	uint top_blue_sensors_fx;
 
 	char score_text[10];
+	char highscore_text[10];
 	char lifes_text[10];
 
 	PhysBody* end;
@@ -126,4 +127,5 @@ public:
 
 	int score_font;
 	int lifes_font;
+	int maxScore_font;
 };

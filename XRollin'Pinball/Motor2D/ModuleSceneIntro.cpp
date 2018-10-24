@@ -128,6 +128,7 @@ bool ModuleSceneIntro::Start()
 	
 	// UI FONTS
 	score_font = App->fonts->Load("textures/Score.png", "0123456789", 1);
+	maxScore_font = App->fonts->Load("textures/MaxScore.png", "0123456789", 1);
 	lifes_font = App->fonts->Load("textures/Lives.png", "0123", 1);
 
 	//--------------------------Death Sensor-------------------------------//
@@ -229,6 +230,7 @@ update_status ModuleSceneIntro::Update()
 			game_started = true;
 			create_ball = true;
 			App->player->lives = 1;
+			App->player->score = 0;
 			App->audio->PlayFx(car_start_fx);
 		}
 	}
@@ -370,7 +372,7 @@ update_status ModuleSceneIntro::Update()
 	}
 
 	if (Exit_SensorChecker == true) {
-		ExitSensor->body->GetFixtureList()->SetSensor(false);
+		//ExitSensor->body->GetFixtureList()->SetSensor(false);
 		Exit_SensorChecker == false;
 	}
 
@@ -451,12 +453,21 @@ update_status ModuleSceneIntro::Update()
 	Destroy();
 
 	//Print Font
-	sprintf_s(score_text, 10, "%7d", App->player->score);
-	sprintf_s(lifes_text, 10, "%7d", App->player->lives);
+	sprintf_s(score_text,"%i", App->player->score);
+	sprintf_s(lifes_text,"%i", App->player->lives);
 
 	App->fonts->BlitText(325, 250, score_font, score_text);
 	App->fonts->BlitText(323, 282, lifes_font, lifes_text);
+	
+	sprintf_s(highscore_text,"%i", App->player->highscore);
+	App->fonts->BlitText(325, 220, maxScore_font, highscore_text);
 
+	if (App->player->lives == 4) {
+		
+		if (App->player->score > App->player->highscore) {
+			App->player->highscore = App->player->score;
+		}
+	}
 
 	//Screen display
 	char score[64];
@@ -466,6 +477,12 @@ update_status ModuleSceneIntro::Update()
 	
 	sprintf_s(score, "%d  ", App->player->score);
 	sprintf_s(lives, "%d", App->player->lives);
+
+
+	if (App->player->lives == 0) {
+		
+
+	}
 
 	strcat_s(Title, score);
 	strcat_s(Title, Num_lives);

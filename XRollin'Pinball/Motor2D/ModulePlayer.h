@@ -22,7 +22,7 @@ public:
 	b2PrismaticJoint* dock;
 
 	uint			score = 0;
-
+	uint			highscore = 0;
 	uint			lives = 4;
 
 	uint flipper_fx;
