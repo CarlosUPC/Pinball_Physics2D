@@ -278,25 +278,16 @@ update_status ModuleSceneIntro::Update()
 	}
 	if (BlueSensor_3 == true) {
 		App->renderer->Blit(sensors_texture,109, 26, &(blueSensor.GetCurrentFrame()));
-		if (blueSensor.current_frame == 0) {
-			blueSensor.Reset();
-			BlueSensor_3 = false;
-		}
+		
 
 	}
 	if (BlueSensor_4 == true) {
 		App->renderer->Blit(sensors_texture, 127, 24, &(blueSensor.GetCurrentFrame()));
-		if (blueSensor.current_frame == 0) {
-			blueSensor.Reset();
-			BlueSensor_4 = false;
-		}
+		
 	}
 	if (BlueSensor_5 == true) {
 		App->renderer->Blit(sensors_texture, 145, 25, &(blueSensor.GetCurrentFrame()));
-		if (blueSensor.current_frame == 0) {
-			blueSensor.Reset();
-			BlueSensor_5 = false;
-		}
+		
 	}
 
 	//-----------------------------Print Flipper blue sensors---------------------------------//
