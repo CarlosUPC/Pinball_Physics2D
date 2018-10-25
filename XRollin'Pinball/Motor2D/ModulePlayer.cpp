@@ -58,7 +58,7 @@ update_status ModulePlayer::Update()
 
 	if ((App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT))
 	{
-		App->physics->FlippersForce(b2Vec2(0, 70), b2Vec2(0, 0), LEFT);
+		App->physics->FlippersForce(b2Vec2(0, 80), b2Vec2(0, 0), LEFT);
 	}
 
 	if ((App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN))
@@ -66,7 +66,7 @@ update_status ModulePlayer::Update()
 
 	if ((App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT))
 	{
-		App->physics->FlippersForce(b2Vec2(0, -70), b2Vec2(0, 0), RIGHT);
+		App->physics->FlippersForce(b2Vec2(0, -80), b2Vec2(0, 0), RIGHT);
 	}
 
 	if (flipper_pressed)

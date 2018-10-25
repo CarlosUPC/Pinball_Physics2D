@@ -19,7 +19,7 @@ public:
 	void OnCollision(PhysBody* bodyA, PhysBody* bodyB);
 	void PlayerBall();
 	void Destroy();
-	
+	void Timer(int time);
 
 public:
 	p2List<PhysBody*> circles;
@@ -52,6 +52,7 @@ public:
 	SDL_Texture* startgame_texture = nullptr;
 	SDL_Texture* insertCoin_texture = nullptr;
 	SDL_Texture* dock_texture = nullptr;
+	SDL_Texture* tunnel_texture = nullptr;
 	SDL_Texture* flipperBouncer_texture = nullptr;
 	
 	Animation arrow1;
@@ -66,10 +67,6 @@ public:
 	Animation arrow8;
 	Animation arrow9;
 
-	
-
-
-
 	Animation blueSensor;
 	Animation flipperSensor;
 	Animation mediumBlueSensor; // blue sensors path
@@ -81,6 +78,8 @@ public:
 
 	bool Exit_Sensor = false;
 	bool Exit_SensorChecker = false;
+
+	bool ChangHole = false;
 
 	bool BlueSensor_1 = false;
 	bool BlueSensor_2 = false;
@@ -128,7 +127,8 @@ public:
 
 	bool open = false;
 	bool died = false;
-	
+	bool bonusX2 = false;
+
 	SDL_Texture* Upleft_flipper = nullptr;
 	SDL_Texture* Upright_flipper = nullptr;
 
@@ -152,4 +152,5 @@ public:
 	int score_font;
 	int lifes_font;
 	int maxScore_font;
+	uint ticks;
 };

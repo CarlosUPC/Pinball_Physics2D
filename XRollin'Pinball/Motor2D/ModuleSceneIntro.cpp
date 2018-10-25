@@ -120,6 +120,8 @@ bool ModuleSceneIntro::Start()
 	sensors_texture = App->textures->Load("textures/Sensors.png");
 	bonus_fx = App->audio->LoadFx("pinball/bonus.wav");
 	flipperBouncer_texture = App->textures->Load("textures/bouncer_animation.png");
+	tunnel_texture = App->textures->Load("textures/tunnel_texture.png");
+
 	//Load Lower flippers
 	left_flipper = App->textures->Load("textures/LeftFlipper.png");
 	right_flipper = App->textures->Load("textures/RightFlipper.png");
@@ -155,7 +157,7 @@ bool ModuleSceneIntro::Start()
 	bounceCircles.add(App->physics->CreateBounceCircle(142, 69, 10.75f));
 	bounceCircles.getLast()->data->listener = this;
 	
-	bouncerInclined = App->physics->CreateRotateRectangle(66, 143, 35, 3, b2_staticBody, 0.5f);
+	bouncerInclined = App->physics->CreateRotateRectangle(68, 145, 35, 3, b2_staticBody, 0.5f);
 
 	StartSensor = App->physics->CreateRotateRectangle(230, 174, 35, 3, b2_staticBody, -1.f);
 	StartSensor->body->SetActive(false);
@@ -171,7 +173,9 @@ bool ModuleSceneIntro::Start()
 	BlueSensors[5] = App->physics->CreateRectangleSensor(9, 355, 10, 10);
 	BlueSensors[6] = App->physics->CreateRectangleSensor(198, 355, 10, 10);
 
-	tp_sensor = App->physics->CreateRotateRectangle(75, 180, 8, 30, b2_staticBody, -1.0f);
+	tp_sensor = App->physics->CreateRotateRectangle(73, 163, 8, 30, b2_staticBody, -1.0f);
+	tp_sensor->body->GetFixtureList()->SetSensor(true);
+
 
 	MediumBlueSensors[0] = App->physics->CreateRectangleSensor(33, 104, 7, 7);
 	MediumBlueSensors[1] = App->physics->CreateRectangleSensor(29, 88, 7, 7);
@@ -226,9 +230,13 @@ update_status ModuleSceneIntro::Update()
 	mouse.y = App->input->GetMouseY();
 
 	App->renderer->Blit(map_texture, 0, 0);
+	App->renderer->Blit(tunnel_texture, 32, 128);
 
-	if (App->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN)
-		circles.getLast()->data->body->SetTransform({ PIXEL_TO_METERS(mouse.x),  PIXEL_TO_METERS(mouse.y) }, 0.0f);
+	if (App->input->GetKey(SDL_SCANCODE_B) == KEY_DOWN) {
+		
+		if (circles.getLast() != nullptr)
+			circles.getLast()->data->body->SetTransform({ PIXEL_TO_METERS(mouse.x),  PIXEL_TO_METERS(mouse.y) }, 0.0f);
+	}
 
 
 	if (game_started) {
@@ -517,10 +525,22 @@ update_status ModuleSceneIntro::Update()
 		StartSensor->body->GetFixtureList()->SetRestitution(0);
 	}
 
-	//--------------------------------Teleport Sensors--------------------------------------//
-	if (tp_sensor_1 == true) {
 
+	//--------------------------------Teleport Sensors--------------------------------------//
+	if (ChangHole == true) {
+
+		circles.getLast()->data->body->SetTransform({ PIXEL_TO_METERS(135),  PIXEL_TO_METERS(210) }, 0.0f);
+		
+		if (SDL_GetTicks() > ticks) {
+			ChangHole = false;
+		}
+
+		
 	}
+
+
+	
+	
 
 	
 	// Prepare for raycast ------------------------------------------------------
@@ -659,45 +679,77 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 	}
 
 	if (bodyB == tp_sensor) {
-		circles.getLast()->data->body->SetTransform({ 50,  100 }, 0.0f);
+		Timer(1500);
+		bonusX2 = true;
+		ChangHole = true;
 	}
 
 	// Blue Sensors----------------------------------------------------------
 	if (bodyB == BlueSensors[0]) {
 		BlueSensor_1 = true;
-		App->player->score += 5;
+
+		if (bonusX2)
+			App->player->score += 200;
+
+		else App->player->score += 100;
 	}
 	if (bodyB == BlueSensors[1]) {
 		BlueSensor_2 = true;
 		App->audio->PlayFx(top_blue_sensors_fx);
-		App->player->score += 5;
+
+		if (bonusX2)
+			App->player->score += 200;
+
+		else App->player->score += 100;
 	}
 	if (bodyB == BlueSensors[2]) {
 		BlueSensor_3 = true;
 		App->audio->PlayFx(top_blue_sensors_fx);
-		App->player->score += 5;
+		
+		if(bonusX2)
+			App->player->score += 200;
+
+		else App->player->score += 100;
 	}
 	if (bodyB == BlueSensors[3]) {
 		BlueSensor_4 = true;
 		App->audio->PlayFx(top_blue_sensors_fx);
-		App->player->score += 5;
+
+		if (bonusX2)
+			App->player->score += 200;
+
+		else App->player->score += 100;
 	}
 
 	if (bodyB == BlueSensors[4]) {
 		BlueSensor_5 = true;
 		App->audio->PlayFx(top_blue_sensors_fx);
-		App->player->score += 5;
+
+		if (bonusX2)
+			App->player->score += 200;
+
+		else App->player->score += 100;
 	}
 
 	if (bodyB == BlueSensors[5]) {
 		BlueSensor_6 = true;
-		App->player->score += 5;
+
+		if (bonusX2)
+			App->player->score += 200;
+
+		else App->player->score += 100;
+
 		App->audio->PlayFx(blue_circle_fx);
 	}
 
 	if (bodyB == BlueSensors[6]) {
 		BlueSensor_7 = true;
-		App->player->score += 5;
+
+		if (bonusX2)
+			App->player->score += 200;
+
+		else App->player->score += 100;
+
 		App->audio->PlayFx(blue_circle_fx);
 	}
 
@@ -705,91 +757,160 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 
 	if (bodyB == MediumBlueSensors[0]) {
 		MediumBlueSensor_1 = true;
-		App->player->score += 5;
+
+		if (bonusX2)
+			App->player->score += 200;
+
+		else App->player->score += 100;
+
 		App->audio->PlayFx(top_blue_sensors_fx);
 	}
 
 	if (bodyB == MediumBlueSensors[1]) {
 		MediumBlueSensor_2 = true;
-		App->player->score += 5;
+
+		if (bonusX2)
+			App->player->score += 200;
+
+		else App->player->score += 100;
+
 		App->audio->PlayFx(top_blue_sensors_fx);
 	}
 
 	if (bodyB == MediumBlueSensors[2]) {
 		MediumBlueSensor_3 = true;
-		App->player->score += 5;
+
+		if (bonusX2)
+			App->player->score += 200;
+
+		else App->player->score += 100;
+
 		App->audio->PlayFx(top_blue_sensors_fx);
 	}
 
 	if (bodyB == MediumBlueSensors[3]) {
 		MediumBlueSensor_4 = true;
-		App->player->score += 5;
+
+		if (bonusX2)
+			App->player->score += 200;
+
+		else App->player->score += 100;
+
 		App->audio->PlayFx(top_blue_sensors_fx);
 	}
 
 	if (bodyB == MediumBlueSensors[4]) {
 		MediumBlueSensor_5 = true;
-		App->player->score += 5;
+
+		if (bonusX2)
+			App->player->score += 200;
+
+		else App->player->score += 100;
+
 		App->audio->PlayFx(top_blue_sensors_fx);
 	}
 
 	if (bodyB == MediumBlueSensors[5]) {
 		MediumBlueSensor_6 = true;
-		App->player->score += 5;
+
+		if (bonusX2)
+			App->player->score += 200;
+
+		else App->player->score += 100;
+
 		App->audio->PlayFx(top_blue_sensors_fx);
 	}
 
 	if (bodyB == MediumBlueSensors[6]) {
 		MediumBlueSensor_7 = true;
-		App->player->score += 5;
+
+		if (bonusX2)
+			App->player->score += 200;
+
+		else App->player->score += 100;
+
 		App->audio->PlayFx(top_blue_sensors_fx);
 	}
 
 	if (bodyB == MediumBlueSensors[7]) {
 		MediumBlueSensor_8 = true;
-		App->player->score += 5;
+
+		if (bonusX2)
+			App->player->score += 200;
+
+		else App->player->score += 100;
+
 		App->audio->PlayFx(top_blue_sensors_fx);
 	}
 
 	if (bodyB == MediumBlueSensors[8]) {
 		MediumBlueSensor_9 = true;
-		App->player->score += 5;
+
+		if (bonusX2)
+			App->player->score += 200;
+
+		else App->player->score += 100;
+
 		App->audio->PlayFx(top_blue_sensors_fx);
 	}
 
 	if (bodyB == MediumBlueSensors[9]) {
 		MediumBlueSensor_10 = true;
-		App->player->score += 5;
+
+		if (bonusX2)
+			App->player->score += 200;
+
+		else App->player->score += 100;
+
 		App->audio->PlayFx(top_blue_sensors_fx);
 	}
 
 	if (bodyB == MediumBlueSensors[10]) {
 		MediumBlueSensor_11 = true;
-		App->player->score += 5;
+
+		if (bonusX2)
+			App->player->score += 200;
+
+		else App->player->score += 100;
+
 		App->audio->PlayFx(top_blue_sensors_fx);
 	}
 
 	if (bodyB == MediumBlueSensors[11]) {
 		MediumBlueSensor_12 = true;
-		App->player->score += 5;
+
+		if (bonusX2)
+			App->player->score += 200;
+
+		else App->player->score += 100;
+
 		App->audio->PlayFx(top_blue_sensors_fx);
 	}
 
 	if (bodyB == MediumBlueSensors[12]) {
 		MediumBlueSensor_13 = true;
-		App->player->score += 5;
+		if (bonusX2)
+			App->player->score += 200;
+
+		else App->player->score += 100;
 		App->audio->PlayFx(top_blue_sensors_fx);
 	}
 
 	if (bodyB == MediumBlueSensors[13]) {
 		MediumBlueSensor_14 = true;
-		App->player->score += 5;
+		if (bonusX2)
+			App->player->score += 200;
+
+		else App->player->score += 100;
 		App->audio->PlayFx(top_blue_sensors_fx);
 	}
 
 	if (bodyB == MediumBlueSensors[14]) {
 		MediumBlueSensor_15 = true;
-		App->player->score += 5;
+		if (bonusX2)
+			App->player->score += 200;
+
+		else App->player->score += 100;
 		App->audio->PlayFx(top_blue_sensors_fx);
 	}
 
@@ -798,42 +919,66 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 	if (bodyB == SmallBlueSensors[0]) {
 		SmallBlueSensor_1 = true;
 
-		App->player->score += 5;
+		if (bonusX2)
+			App->player->score += 200;
+
+		else App->player->score += 100;
 	}
 	if (bodyB == SmallBlueSensors[1]) {
 		SmallBlueSensor_2 = true;
 
-		App->player->score += 5;
+		if (bonusX2)
+			App->player->score += 200;
+
+		else App->player->score += 100;
 	}
 	if (bodyB == SmallBlueSensors[2]) {
 		SmallBlueSensor_3 = true;
 
-		App->player->score += 5;
+		if (bonusX2)
+			App->player->score += 200;
+
+		else App->player->score += 100;
 	}
 	if (bodyB == SmallBlueSensors[3]) {
 		SmallBlueSensor_4 = true;
 
-		App->player->score += 5;
+		if (bonusX2)
+			App->player->score += 200;
+
+		else App->player->score += 100;
 	}
 
 	if (bodyB == SmallBlueSensors[4]) {
 		SmallBlueSensor_5 = true;
-		App->player->score += 5;
+		if (bonusX2)
+			App->player->score += 200;
+
+		else App->player->score += 100;
 	}
 	if (bodyB == SmallBlueSensors[5]) {
 		SmallBlueSensor_6 = true;
 
-		App->player->score += 5;
+		if (bonusX2)
+			App->player->score += 200;
+
+		else App->player->score += 100;
 	}
 	if (bodyB == SmallBlueSensors[6]) {
 		SmallBlueSensor_7 = true;
 
-		App->player->score += 5;
+		if (bonusX2)
+			App->player->score += 200;
+
+		else App->player->score += 100;
 	}
 
 	if (bodyB == SmallBlueSensors[7]) {
 		SmallBlueSensor_8 = true;
-		App->player->score += 5;
+		if (bonusX2)
+			App->player->score += 200;
+
+		else App->player->score += 100;
 	}
 
 
@@ -841,24 +986,36 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 	if (bodyB == ShinySensors[0]) {
 		ShinySensor_1 = true;
 		App->audio->PlayFx(red_circle_fx);
-		App->player->score += 10;
+		if (bonusX2)
+			App->player->score += 200;
+
+		else App->player->score += 100;
 	}
 	if (bodyB == ShinySensors[1]) {
 		ShinySensor_2 = true;
 		App->audio->PlayFx(red_circle_fx);
-		App->player->score += 10;
+		if (bonusX2)
+			App->player->score += 200;
+
+		else App->player->score += 100;
 	}
 
 	if (bodyB == ShinySensors[2]) {
 		ShinySensor_3 = true;
 		App->audio->PlayFx(red_circle_fx);
-		App->player->score += 10;
+		if (bonusX2)
+			App->player->score += 200;
+
+		else App->player->score += 100;
 	}
 
 	if (bodyB == ShinySensors[3]) {
 		ShinySensor_4 = true;
 		App->audio->PlayFx(red_circle_fx);
-		App->player->score += 10;
+		if (bonusX2)
+			App->player->score += 200;
+
+		else App->player->score += 100;
 	}
 
 	if (bodyB == ExitSensorChecker && died) {
@@ -907,5 +1064,11 @@ void ModuleSceneIntro::PlayerBall() {
 	create_ball = false;
 	StartSensor->body->SetActive(false);
 	died = true;
+	bonusX2 = false;
 }
 
+void ModuleSceneIntro::Timer(int time)
+{
+	//pause = true;
+	ticks = SDL_GetTicks() + time;
+}
