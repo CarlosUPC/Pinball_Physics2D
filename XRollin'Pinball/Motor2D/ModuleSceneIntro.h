@@ -39,7 +39,7 @@ public:
 	PhysBody* bouncerInclined;
 	PhysBody* FlipperBouncers[2];
 	PhysBody* ShinySensors[4];
-
+	
 
 	SDL_Texture* circle = nullptr;
 	SDL_Texture* box = nullptr;
@@ -65,7 +65,7 @@ public:
 	Animation arrow8;
 	Animation arrow9;
 
-
+	
 
 
 

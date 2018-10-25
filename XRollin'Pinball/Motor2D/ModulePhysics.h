@@ -52,7 +52,7 @@ public:
 	PhysBody* CreateBounceCircle(int x, int y, int radius);
 	PhysBody* CreateRotateRectangle(int x, int y, int width, int height, b2BodyType type, float angle);
 	b2PrismaticJoint* CreateDock();
-
+	
 	// Create Flippers
 	void BuildLeftFlippers(p2List<PhysBody*>* leftKickers);
 	void BuildRightFlippers(p2List<PhysBody*>* RightKickers);
@@ -69,7 +69,7 @@ private:
 
 	bool debug;
 	
-	b2MouseJoint* mouse_joint;
+	//b2MouseJoint* mouse_joint;
 	b2Body* ground;
 	b2DistanceJoint* distance_joint;
 
@@ -78,7 +78,7 @@ private:
 	b2RevoluteJoint* revolute_joint2;
 
 public:
-
+	b2MouseJoint* mouse_joint;
 	b2World* world;
 	b2Body* big_ball;
 	PhysBody* map;
@@ -95,4 +95,6 @@ public:
 
 	PhysBody* dock;
 	PhysBody* dockBase;
+
+	
 };

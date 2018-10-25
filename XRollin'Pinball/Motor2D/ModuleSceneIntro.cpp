@@ -218,6 +218,7 @@ bool ModuleSceneIntro::CleanUp()
 update_status ModuleSceneIntro::Update()
 {
 
+
 	iPoint mouse;
 	mouse.x = App->input->GetMouseX();
 	mouse.y = App->input->GetMouseY();
@@ -228,7 +229,6 @@ update_status ModuleSceneIntro::Update()
 		circles.getLast()->data->body->SetTransform({ PIXEL_TO_METERS(mouse.x),  PIXEL_TO_METERS(mouse.y) }, 0.0f);
 
 
-	
 	if (game_started) {
 		App->renderer->Blit(sensors_texture, 109, 8, &(arrow1.GetCurrentFrame()));
 		App->renderer->Blit(sensors_texture, 126, 8, &(arrow2.GetCurrentFrame()));
