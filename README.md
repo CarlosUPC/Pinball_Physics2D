@@ -34,5 +34,5 @@ http://www.freewebarcade.com/game/rollin-x-pinball/index.php?act=Arcade&do=newsc
 
 ## Description of the combo implemented
 
-
+When ball enters in one of the mid holes, the ball is teleported in his neighbour hole and bonus X2 is activated to get the double of points until the ball die. This is the maximum approximation that exists in the original game about combo and we have implemented
 
