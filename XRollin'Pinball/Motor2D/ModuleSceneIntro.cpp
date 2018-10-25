@@ -157,7 +157,7 @@ bool ModuleSceneIntro::Start()
 	bounceCircles.add(App->physics->CreateBounceCircle(142, 69, 10.75f));
 	bounceCircles.getLast()->data->listener = this;
 	
-	bouncerInclined = App->physics->CreateRotateRectangle(68, 145, 35, 3, b2_staticBody, 0.5f);
+	bouncerInclined = App->physics->CreateRotateRectangle(65, 147, 35, 3, b2_staticBody, 0.5f);
 
 	StartSensor = App->physics->CreateRotateRectangle(230, 174, 35, 3, b2_staticBody, -1.f);
 	StartSensor->body->SetActive(false);
@@ -217,6 +217,44 @@ bool ModuleSceneIntro::CleanUp()
 	//Freeing fonts
 	App->fonts->UnLoad(score_font);
 	App->fonts->UnLoad(lifes_font);
+	App->fonts->UnLoad(maxScore_font);
+
+	App->textures->Unload(ball_texture);
+	ball_texture = nullptr;
+
+	App->textures->Unload(map_texture);
+	map_texture = nullptr;
+
+	App->textures->Unload(dock_texture);
+	dock_texture = nullptr;
+
+	App->textures->Unload(startgame_texture);
+	startgame_texture = nullptr;
+
+	App->textures->Unload(insertCoin_texture);
+	insertCoin_texture = nullptr;
+
+	App->textures->Unload(sensors_texture);
+	sensors_texture = nullptr;
+
+	App->textures->Unload(flipperBouncer_texture);
+	flipperBouncer_texture = nullptr;
+
+	App->textures->Unload(tunnel_texture);
+	tunnel_texture = nullptr;
+
+	App->textures->Unload(left_flipper);
+	left_flipper = nullptr;
+
+	App->textures->Unload(right_flipper);
+	right_flipper = nullptr;
+
+	App->textures->Unload(Upleft_flipper);
+	Upleft_flipper = nullptr;
+
+	App->textures->Unload(Upright_flipper);
+	Upright_flipper = nullptr;
+
 	return true;
 }
 
