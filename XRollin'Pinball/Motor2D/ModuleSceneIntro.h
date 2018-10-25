@@ -35,6 +35,7 @@ public:
 	PhysBody* BlueSensors[7];
 	PhysBody* MediumBlueSensors[15];
 	PhysBody* SmallBlueSensors[8];
+	PhysBody* tp_sensor;
 
 	PhysBody* bouncerInclined;
 	PhysBody* FlipperBouncers[2];
@@ -122,6 +123,8 @@ public:
 	
 	bool game_started = false;
 	bool create_ball = false;
+
+	bool tp_sensor_1 = false;
 
 	bool open = false;
 	bool died = false;

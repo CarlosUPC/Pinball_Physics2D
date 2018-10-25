@@ -171,6 +171,8 @@ bool ModuleSceneIntro::Start()
 	BlueSensors[5] = App->physics->CreateRectangleSensor(9, 355, 10, 10);
 	BlueSensors[6] = App->physics->CreateRectangleSensor(198, 355, 10, 10);
 
+	tp_sensor = App->physics->CreateRotateRectangle(75, 180, 8, 30, b2_staticBody, -1.0f);
+
 	MediumBlueSensors[0] = App->physics->CreateRectangleSensor(33, 104, 7, 7);
 	MediumBlueSensors[1] = App->physics->CreateRectangleSensor(29, 88, 7, 7);
 	MediumBlueSensors[2] = App->physics->CreateRectangleSensor(28, 73, 7, 7);
@@ -274,7 +276,6 @@ update_status ModuleSceneIntro::Update()
 	if (game_started == true && create_ball && App->player->lives < 4)
 	{
 		PlayerBall();
-		
 	}
 	
 	//------------------------------Print Blue Sensors---------------------------------//
@@ -516,6 +517,11 @@ update_status ModuleSceneIntro::Update()
 		StartSensor->body->GetFixtureList()->SetRestitution(0);
 	}
 
+	//--------------------------------Teleport Sensors--------------------------------------//
+	if (tp_sensor_1 == true) {
+
+	}
+
 	
 	// Prepare for raycast ------------------------------------------------------
 	
@@ -650,8 +656,10 @@ void ModuleSceneIntro::OnCollision(PhysBody* bodyA, PhysBody* bodyB)
 
 		if (App->player->lives == 4)
 			game_started = false;
+	}
 
-	
+	if (bodyB == tp_sensor) {
+		circles.getLast()->data->body->SetTransform({ 50,  100 }, 0.0f);
 	}
 
 	// Blue Sensors----------------------------------------------------------
